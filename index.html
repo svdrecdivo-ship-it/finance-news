@@ -22,40 +22,40 @@
 
         header {
             background: #fff;
-            padding: 40px 0;
-            border-bottom: 10px solid var(--accent);
+            padding: 30px 0;
+            border-bottom: 8px solid var(--accent);
             text-align: center;
         }
 
-        h1 { margin: 0; font-size: 4em; text-transform: uppercase; letter-spacing: 5px; }
+        h1 { margin: 0; font-size: 3.5em; text-transform: uppercase; letter-spacing: 4px; }
 
-        /* THANH TICKER CHẠY REAL-TIME TỪ TRADINGVIEW */
+        /* THANH TICKER REAL-TIME CHỮ XANH CHẠY TRÊN NỀN ĐEN */
         .ticker-container {
             width: 100%;
-            height: 60px; /* Tăng độ cao cho chữ to */
+            height: 55px;
             background: #000;
-            border-bottom: 5px solid #333;
+            border-bottom: 4px solid #333;
         }
 
         .main-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             width: 100%;
-            gap: 2px; /* Ép sát nhau nhất có thể để bít khoảng trống */
-            background: #000;
+            gap: 5px; /* Giảm gap để bít kín màn hình */
+            background: #ddd;
         }
 
         .card {
             background: #fff;
             display: flex;
             flex-direction: column;
-            min-height: 1000px; /* Kéo dài cột xuống phía dưới */
+            min-height: 950px; /* Chiều cao lớn để lấp đầy không gian */
         }
 
         .card-header {
-            padding: 40px 20px;
+            padding: 35px 20px;
             text-align: center;
-            font-size: 2.5em; /* Chữ tiêu đề cực to */
+            font-size: 2.3em; /* Chữ siêu to */
             color: #fff;
             text-transform: uppercase;
         }
@@ -64,7 +64,7 @@
         .bg-green { background: var(--green); }
 
         .card-body {
-            padding: 40px;
+            padding: 35px;
             flex-grow: 1;
             display: flex;
             flex-direction: column;
@@ -72,34 +72,36 @@
 
         .chart-box {
             width: 100%;
-            height: 500px; /* Tăng kích thước biểu đồ */
-            margin-bottom: 40px;
+            height: 480px; /* Biểu đồ to rõ */
+            margin-bottom: 35px;
             border: 2px solid #eee;
         }
 
         .info-list {
             list-style: none;
             padding: 0;
-            margin: 0 0 50px 0;
+            margin: 0 0 40px 0;
         }
 
         .info-list li {
-            padding: 25px 0;
-            border-bottom: 3px solid #f0f0f0;
-            font-size: 1.8em; /* Chữ thông số siêu to */
+            padding: 22px 0;
+            border-bottom: 3px solid #f9f9f9;
+            font-size: 1.7em; /* Chữ thông số siêu to */
             display: flex;
             justify-content: space-between;
         }
 
+        /* NÚT BẤM TO - MỞ TAB MỚI ĐỂ KHÔNG MẤT TRANG CHỦ */
         .news-btn {
             background: var(--accent);
             color: #fff;
-            padding: 30px;
+            padding: 25px;
             text-align: center;
             text-decoration: none;
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: 900;
             margin-top: auto;
+            border-radius: 0;
             transition: 0.3s;
         }
 
@@ -107,10 +109,10 @@
 
         footer {
             text-align: center;
-            padding: 50px;
+            padding: 40px;
             background: #fff;
-            border-top: 10px solid var(--accent);
-            font-size: 1.5em;
+            border-top: 8px solid var(--accent);
+            font-size: 1.4em;
         }
 
         @media (max-width: 1300px) {
@@ -121,8 +123,8 @@
 <body>
 
     <header>
-        <h1>🏛️ TRUNG TÂM CHIẾN LƯỢC BẢO NAM</h1>
-        <p style="font-size: 1.8em;">Kinh tế - Địa chính trị - Tài chính (Real-time 2026)</p>
+        <h1>🏛️ HỆ THỐNG CHIẾN LƯỢC BẢO NAM</h1>
+        <p style="font-size: 1.6em; color: #666;">Dữ liệu Vĩ mô & Tài chính Real-time (Cập nhật 2026)</p>
     </header>
 
     <div class="ticker-container">
@@ -138,11 +140,11 @@
                     <iframe src="https://vn.tradingview.com/embed-widget/mini-symbol-overview/?symbol=FX_IDC%3AUSDVND&interval=D&displayMode=large&width=100%25&height=100%25&colorTheme=light" frameborder="0" style="width:100%; height:100%"></iframe>
                 </div>
                 <ul class="info-list">
-                    <li><span>GDP Dự phóng:</span> <strong>6.8%</strong></li>
-                    <li><span>CPI (Lạm phát):</span> <strong>3.7%</strong></li>
-                    <li><span>Tỷ giá USDVND:</span> <strong>Theo dõi Live</strong></li>
+                    <li><span>Mục tiêu GDP:</span> <strong>6.8%</strong></li>
+                    <li><span>Lạm phát (CPI):</span> <strong>3.7%</strong></li>
+                    <li><span>Tỷ giá USDVND:</span> <strong>XEM LIVE ↗</strong></li>
                 </ul>
-                <a href="https://vnexpress.net/kinh-doanh/quoc-te" target="_blank" class="news-btn">TIN KINH TẾ ↗</a>
+                <a href="https://vnexpress.net/kinh-doanh/quoc-te" target="_blank" class="news-btn">TIN KINH TẾ MỚI NHẤT ↗</a>
             </div>
         </div>
 
@@ -153,33 +155,33 @@
                     <iframe src="https://vn.tradingview.com/embed-widget/mini-symbol-overview/?symbol=TVC%3AUKOIL&interval=D&displayMode=large&width=100%25&height=100%25&colorTheme=light" frameborder="0" style="width:100%; height:100%"></iframe>
                 </div>
                 <ul class="info-list">
-                    <li><span>Giá Dầu Brent:</span> <strong>Real-time</strong></li>
-                    <li><span>Rủi ro Supply:</span> <strong>Trung bình</strong></li>
-                    <li><span>Điểm nóng:</span> <strong>Thương mại Á-Âu</strong></li>
+                    <li><span>Giá Dầu Brent:</span> <strong>LIVE ↗</strong></li>
+                    <li><span>Chuỗi cung ứng:</span> <strong>Ổn định</strong></li>
+                    <li><span>Tin quốc tế:</span> <strong>Nóng 24h</strong></li>
                 </ul>
-                <a href="https://tuoitre.vn/the-gioi.htm" target="_blank" class="news-btn">TIN THẾ GIỚI ↗</a>
+                <a href="https://tuoitre.vn/the-gioi.htm" target="_blank" class="news-btn">BIẾN ĐỘNG THẾ GIỚI ↗</a>
             </div>
         </div>
 
         <div class="card">
-            <div class="card-header bg-green">⚖️ TÀI CHÍNH VN</div>
+            <div class="card-header bg-green">⚖️ TÀI CHÍNH VIỆT NAM</div>
             <div class="card-body">
                 <div class="chart-box">
                     <iframe src="https://vn.tradingview.com/embed-widget/mini-symbol-overview/?symbol=INDEX%3AVNINDEX&interval=D&displayMode=large&width=100%25&height=100%25&colorTheme=light" frameborder="0" style="width:100%; height:100%"></iframe>
                 </div>
                 <ul class="info-list">
-                    <li><span>VN-INDEX:</span> <strong>Live Chart</strong></li>
-                    <li><span>Thanh khoản:</span> <strong>~22k Tỷ</strong></li>
-                    <li><span>Lãi suất tiết kiệm:</span> <strong>5.8%</strong></li>
+                    <li><span>VN-INDEX:</span> <strong>CHART LIVE</strong></li>
+                    <li><span>Thanh khoản TB:</span> <strong>~22k Tỷ</strong></li>
+                    <li><span>Lãi suất:</span> <strong>5.8% - 6.2%</strong></li>
                 </ul>
-                <a href="https://vietnamnet.vn/kinh-doanh/tai-chinh" target="_blank" class="news-btn">TIN ĐẦU TƯ ↗</a>
+                <a href="https://vietnamnet.vn/kinh-doanh/tai-chinh" target="_blank" class="news-btn">CHIẾN LƯỢC ĐẦU TƯ ↗</a>
             </div>
         </div>
 
     </div>
 
     <footer>
-        DỮ LIỆU TỔNG HỢP CHO TRẦN BẢO NAM | 2026
+        HỆ THỐNG CẬP NHẬT TỰ ĐỘNG - TRẦN BẢO NAM | 2026
     </footer>
 
 </body>
