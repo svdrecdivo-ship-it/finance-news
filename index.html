@@ -1,152 +1,120 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trung tâm chiến lược</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bloomberg Mini Terminal</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Inter;background:#0b0f14;color:#e6e6e6}
+header{padding:20px;text-align:center;background:#111}
+header h1{margin:0;font-size:26px}
 
-  <style>
-    body { margin:0; font-family:'Inter',sans-serif; background:#eef2f5; }
+.ticker{background:#000;color:#00ff9c;padding:8px;font-family:monospace;white-space:nowrap;overflow:hidden}
 
-    header { text-align:center; padding:25px; background:white; }
-    header h1 { margin:0; font-size:30px; }
-    header p { color:#666; }
+.grid{display:grid;grid-template-columns:2fr 1fr;gap:10px;padding:10px}
 
-    .ticker {
-      background:#111; color:#0f0; padding:8px;
-      font-family: monospace;
-      overflow:hidden;
-      white-space:nowrap;
-    }
+.panel{background:#111;border-radius:10px;padding:10px}
 
-    .grid {
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap:15px;
-      padding:15px;
-    }
+.table{width:100%;font-size:13px}
+.table tr{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222}
+.green{color:#00ff9c}
+.red{color:#ff4d4d}
 
-    .panel {
-      border-radius:12px;
-      background:white;
-      box-shadow:0 4px 12px rgba(0,0,0,0.08);
-    }
+.heatmap{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.box{padding:10px;border-radius:6px;text-align:center;font-size:13px}
 
-    .panel-header {
-      padding:10px 14px;
-      color:white;
-      font-weight:600;
-    }
-
-    .blue{background:#1f5fae;} 
-    .red{background:#c51616;} 
-    .green{background:#0c6b2f;}
-
-    .panel-body { padding:15px; }
-
-    .row {
-      display:flex;
-      justify-content:space-between;
-      margin-bottom:10px;
-      font-size:15px;
-    }
-
-    .value { font-weight:600; }
-
-    footer {
-      text-align:center;
-      padding:10px;
-      background:#111;
-      color:white;
-    }
-  </style>
+footer{text-align:center;padding:10px;background:#000}
+</style>
 </head>
 <body>
 
 <header>
-  <h1>🏛️ TRUNG TÂM CHIẾN LƯỢC BẢO NAM</h1>
-  <p>Terminal dữ liệu tài chính & địa chính trị</p>
+<h1>📊 BLOOMBERG MINI TERMINAL - NAM</h1>
 </header>
 
-<div class="ticker" id="ticker">Đang tải dữ liệu...</div>
+<div class="ticker" id="ticker">Loading...</div>
 
 <div class="grid">
 
-  <!-- VĨ MÔ -->
-  <div class="panel">
-    <div class="panel-header blue">📊 VĨ MÔ</div>
-    <div class="panel-body">
-      <div class="row">USD/VND <span id="usd" class="value"></span></div>
-      <div class="row">EUR/USD <span id="eur" class="value"></span></div>
-      <div class="row">DXY <span id="dxy" class="value"></span></div>
-    </div>
-  </div>
+<!-- LEFT: MARKET TABLE -->
+<div class="panel">
+<h3>Top cổ phiếu (VN)</h3>
+<table class="table" id="stocks"></table>
+</div>
 
-  <!-- ĐỊA CHÍNH TRỊ -->
-  <div class="panel">
-    <div class="panel-header red">🌍 ĐỊA CHÍNH TRỊ</div>
-    <div class="panel-body">
-      <div class="row">Vàng (XAU/USD) <span id="gold" class="value"></span></div>
-      <div class="row">Dầu Brent <span id="oil" class="value"></span></div>
-    </div>
-  </div>
-
-  <!-- VIỆT NAM -->
-  <div class="panel">
-    <div class="panel-header green">⚖️ VIỆT NAM</div>
-    <div class="panel-body">
-      <div class="row">VNINDEX (ước tính) <span id="vnindex" class="value"></span></div>
-      <div class="row">VN30 (ước tính) <span id="vn30" class="value"></span></div>
-    </div>
-  </div>
+<!-- RIGHT: HEATMAP -->
+<div class="panel">
+<h3>Heatmap ngành</h3>
+<div class="heatmap" id="heatmap"></div>
+</div>
 
 </div>
 
 <footer>
-  Trang web được thiết kế bởi Nam ko Hề
+Trang web được thiết kế bởi Nam ko Hề
 </footer>
 
 <script>
-async function loadData(){
-  try{
-    // Forex thật
-    const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=VND,EUR');
-    const data = await res.json();
 
-    const usdVnd = data.rates.VND;
-    const eurUsd = (1/data.rates.EUR);
+const stockList = ["VCB","BID","CTG","HPG","VNM","FPT","MWG","GAS","SSI"];
 
-    document.getElementById('usd').innerText = usdVnd.toFixed(0);
-    document.getElementById('eur').innerText = eurUsd.toFixed(2);
+async function loadStocks(){
+  let html="";
 
-    // DXY gần đúng (mock nhẹ)
-    const dxy = 100 + Math.random()*5;
-    document.getElementById('dxy').innerText = dxy.toFixed(2);
+  stockList.forEach(s=>{
+    let price = (Math.random()*100+20).toFixed(2);
+    let change = (Math.random()*4-2).toFixed(2);
 
-    // Commodity (semi-real range)
-    const gold = 2300 + Math.random()*50;
-    const oil = 85 + Math.random()*10;
+    html += `<tr>
+      <td>${s}</td>
+      <td class="${change>0?'green':'red'}">${price} (${change}%)</td>
+    </tr>`;
+  });
 
-    document.getElementById('gold').innerText = '$' + gold.toFixed(2);
-    document.getElementById('oil').innerText = '$' + oil.toFixed(2);
-
-    // VNINDEX (fallback vì không có API free)
-    const vn = 1200 + Math.random()*50;
-    const vn30 = 1250 + Math.random()*50;
-
-    document.getElementById('vnindex').innerText = vn.toFixed(2);
-    document.getElementById('vn30').innerText = vn30.toFixed(2);
-
-    // ticker
-    document.getElementById('ticker').innerText = `USD/VND: ${usdVnd.toFixed(0)} | EUR/USD: ${eurUsd.toFixed(2)} | Gold: ${gold.toFixed(2)} | Oil: ${oil.toFixed(2)}`;
-
-  }catch(e){ console.error(e); }
+  document.getElementById("stocks").innerHTML = html;
 }
 
-loadData();
-setInterval(loadData,30000);
+function loadHeatmap(){
+  const sectors = [
+    {name:"Bank", val:Math.random()},
+    {name:"Oil", val:Math.random()},
+    {name:"Steel", val:Math.random()},
+    {name:"Retail", val:Math.random()},
+    {name:"Tech", val:Math.random()},
+    {name:"Export", val:Math.random()}
+  ];
+
+  let html="";
+  sectors.forEach(s=>{
+    let green = Math.floor(255*s.val);
+    let red = 255-green;
+    html += `<div class="box" style="background:rgb(${red},${green},80)">${s.name}</div>`;
+  });
+
+  document.getElementById("heatmap").innerHTML = html;
+}
+
+async function loadTicker(){
+  const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=VND,EUR');
+  const data = await res.json();
+
+  let usd = data.rates.VND.toFixed(0);
+  let eur = (1/data.rates.EUR).toFixed(2);
+
+  document.getElementById("ticker").innerText = `USD/VND: ${usd} | EUR/USD: ${eur} | GOLD ~ 2300 | OIL ~ 90`;
+}
+
+function refresh(){
+  loadStocks();
+  loadHeatmap();
+  loadTicker();
+}
+
+refresh();
+setInterval(refresh,10000);
+
 </script>
 
 </body>
