@@ -8,64 +8,82 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body { margin:0; font-family:'Inter',sans-serif; background:#f1f3f6; }
+    body { margin:0; font-family:'Inter',sans-serif; background:#eef2f5; }
 
-    header { text-align:center; padding:30px; background:white; }
-    header h1 { margin:0; font-size:32px; }
-    header p { color:#555; }
+    header { text-align:center; padding:25px; background:white; }
+    header h1 { margin:0; font-size:30px; }
+    header p { color:#666; }
 
-    .ticker { background:#111; color:#fff; padding:10px; }
+    .ticker { background:#111; color:#fff; padding:8px; font-size:14px; }
 
-    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:20px; padding:20px; }
+    .grid {
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap:15px;
+      padding:15px;
+      height: calc(100vh - 140px);
+    }
 
-    .panel { border-radius:14px; overflow:hidden; box-shadow:0 6px 15px rgba(0,0,0,0.08); background:white; }
+    .panel {
+      border-radius:12px;
+      overflow:hidden;
+      background:white;
+      box-shadow:0 4px 12px rgba(0,0,0,0.08);
+      display:flex;
+      flex-direction:column;
+    }
 
-    .panel-header { padding:12px 16px; color:white; font-weight:600; }
-    .blue{background:#1f5fae;} .red{background:#c51616;} .green{background:#0c6b2f;}
+    .panel-header {
+      padding:10px 14px;
+      color:white;
+      font-weight:600;
+      font-size:15px;
+    }
 
-    .panel-body { padding:16px; }
+    .blue{background:#1f5fae;} 
+    .red{background:#c51616;} 
+    .green{background:#0c6b2f;}
 
-    footer { text-align:center; padding:15px; background:#111; color:white; }
+    .panel-body {
+      flex:1;
+      padding:10px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+
+    .tv-box {
+      flex:1;
+      min-height:250px;
+    }
+
+    footer {
+      text-align:center;
+      padding:10px;
+      background:#111;
+      color:white;
+      font-size:14px;
+    }
   </style>
 </head>
 <body>
 
 <header>
   <h1>🏛️ TRUNG TÂM CHIẾN LƯỢC BẢO NAM</h1>
-  <p>Hệ thống Terminal: Địa chính trị & Kinh tế Việt Nam</p>
+  <p>Terminal dữ liệu tài chính & địa chính trị</p>
 </header>
 
 <div class="ticker">
-  Live Market Data - TradingView
+  Live Market Data - TradingView (Real-time)
 </div>
 
 <div class="grid">
 
   <!-- VĨ MÔ -->
   <div class="panel">
-    <div class="panel-header blue">📊 CHỈ SỐ VĨ MÔ</div>
+    <div class="panel-header blue">📊 VĨ MÔ</div>
     <div class="panel-body">
-
-      <!-- TradingView Widget BEGIN -->
-      <div class="tradingview-widget-container">
-        <div id="tv-forex"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
-        <script type="text/javascript">
-          new TradingView.widget({
-            "width": "100%",
-            "height": 300,
-            "symbol": "FX_IDC:USDVND",
-            "interval": "D",
-            "timezone": "Asia/Ho_Chi_Minh",
-            "theme": "light",
-            "style": "1",
-            "locale": "vi",
-            "container_id": "tv-forex"
-          });
-        </script>
-      </div>
-      <!-- TradingView Widget END -->
-
+      <div class="tv-box" id="tv-forex"></div>
     </div>
   </div>
 
@@ -73,66 +91,16 @@
   <div class="panel">
     <div class="panel-header red">🌍 ĐỊA CHÍNH TRỊ</div>
     <div class="panel-body">
-
-      <div class="tradingview-widget-container">
-        <div id="tv-oil"></div>
-        <script type="text/javascript">
-          new TradingView.widget({
-            "width": "100%",
-            "height": 300,
-            "symbol": "TVC:UKOIL",
-            "interval": "D",
-            "timezone": "Asia/Ho_Chi_Minh",
-            "theme": "light",
-            "style": "1",
-            "locale": "vi",
-            "container_id": "tv-oil"
-          });
-        </script>
-      </div>
-
-      <div class="tradingview-widget-container" style="margin-top:10px">
-        <div id="tv-gold"></div>
-        <script type="text/javascript">
-          new TradingView.widget({
-            "width": "100%",
-            "height": 300,
-            "symbol": "OANDA:XAUUSD",
-            "interval": "D",
-            "timezone": "Asia/Ho_Chi_Minh",
-            "theme": "light",
-            "style": "1",
-            "locale": "vi",
-            "container_id": "tv-gold"
-          });
-        </script>
-      </div>
-
+      <div class="tv-box" id="tv-oil"></div>
+      <div class="tv-box" id="tv-gold"></div>
     </div>
   </div>
 
   <!-- VIỆT NAM -->
   <div class="panel">
-    <div class="panel-header green">⚖️ THỊ TRƯỜNG VIỆT NAM</div>
+    <div class="panel-header green">⚖️ VIỆT NAM</div>
     <div class="panel-body">
-
-      <div class="tradingview-widget-container">
-        <div id="tv-vn"></div>
-        <script type="text/javascript">
-          new TradingView.widget({
-            "width": "100%",
-            "height": 300,
-            "symbol": "INDEX:VNINDEX",
-            "interval": "D",
-            "timezone": "Asia/Ho_Chi_Minh",
-            "theme": "light",
-            "style": "1",
-            "locale": "vi",
-            "container_id": "tv-vn"
-          });
-        </script>
-      </div>
-
+      <div class="tv-box" id="tv-vn"></div>
     </div>
   </div>
 
@@ -141,6 +109,62 @@
 <footer>
   Trang web được thiết kế bởi Nam ko Hề
 </footer>
+
+<script src="https://s3.tradingview.com/tv.js"></script>
+
+<script>
+  // USD/VND
+  new TradingView.widget({
+    container_id: "tv-forex",
+    width: "100%",
+    height: "100%",
+    symbol: "FX_IDC:USDVND",
+    interval: "D",
+    timezone: "Asia/Ho_Chi_Minh",
+    theme: "light",
+    style: "1",
+    locale: "vi"
+  });
+
+  // DẦU BRENT
+  new TradingView.widget({
+    container_id: "tv-oil",
+    width: "100%",
+    height: "100%",
+    symbol: "TVC:UKOIL",
+    interval: "D",
+    timezone: "Asia/Ho_Chi_Minh",
+    theme: "light",
+    style: "1",
+    locale: "vi"
+  });
+
+  // VÀNG
+  new TradingView.widget({
+    container_id: "tv-gold",
+    width: "100%",
+    height: "100%",
+    symbol: "OANDA:XAUUSD",
+    interval: "D",
+    timezone: "Asia/Ho_Chi_Minh",
+    theme: "light",
+    style: "1",
+    locale: "vi"
+  });
+
+  // VNINDEX (FIX)
+  new TradingView.widget({
+    container_id: "tv-vn",
+    width: "100%",
+    height: "100%",
+    symbol: "TVC:VNINDEX",
+    interval: "D",
+    timezone: "Asia/Ho_Chi_Minh",
+    theme: "light",
+    style: "1",
+    locale: "vi"
+  });
+</script>
 
 </body>
 </html>
