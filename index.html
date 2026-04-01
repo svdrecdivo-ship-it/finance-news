@@ -3,137 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIN TỨC ĐẦU BÒ - KHÔNG NHIỄU</title>
+    <title>TIN TỨC ĐẦU BÒ - AUTO CLEAN</title>
     <style>
         :root {
-            --bg: #fdfcf0; /* Màu nền kem dịu mắt giống web game của Nam */
+            --bg: #fdfcf0;
             --accent: #000;
+            --card-bg: #ffffff;
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             margin: 0; padding: 20px;
-            text-align: center;
+            color: #333;
         }
 
         header {
-            padding: 30px;
-            border-bottom: 6px solid var(--accent);
+            text-align: center;
+            padding: 40px 20px;
             background: #fff;
-            margin-bottom: 40px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border: 6px solid var(--accent);
+            box-shadow: 10px 10px 0 var(--accent);
+            margin-bottom: 50px;
         }
 
-        h1 { margin: 0; font-size: 2.8em; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 2.5em; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* LƯỚI TIN TỨC */
-        .news-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            max-width: 1300px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
         }
 
-        /* THẺ TIN TỨC - CHỈNH BỐ CỤC GIỐNG GAME-CARD */
-        .news-card {
-            background: #fff;
+        /* KHUNG CHỨA TIN TỰ ĐỘNG */
+        .news-section {
+            background: var(--card-bg);
             border: 5px solid var(--accent);
-            border-radius: 20px;
-            padding: 25px;
-            text-align: left;
-            transition: 0.3s;
-            cursor: pointer;
-            text-decoration: none; /* Bỏ gạch chân của thẻ <a> */
-            color: #000;
+            border-radius: 15px;
+            padding: 0;
+            overflow: hidden;
+            box-shadow: 12px 12px 0 rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
-            box-shadow: 10px 10px 0 var(--accent);
+            height: 650px; /* Độ cao cố định để cuộn tin bên trong */
         }
 
-        .news-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 15px 15px 0 var(--accent);
-        }
-
-        .category {
+        .section-title {
+            background: var(--accent);
+            color: #fff;
+            padding: 15px;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 0.75em;
-            background: #eee;
-            padding: 5px 10px;
-            border: 2px solid #000;
-            display: inline-block;
-            margin-bottom: 15px;
+            text-align: center;
+            letter-spacing: 2px;
         }
 
-        .news-card h2 {
-            margin: 0 0 15px 0;
-            font-size: 1.5em;
-            line-height: 1.2;
-            min-height: 3.6em; /* Giữ cho các thẻ cao bằng nhau */
+        /* TÙY CHỈNH IFRAME ĐỂ HIỂN THỊ TIN */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
 
-        .news-card p {
-            font-size: 0.95em;
-            color: #444;
-            margin-bottom: 20px;
-            line-height: 1.5;
+        footer {
+            text-align: center;
+            margin-top: 80px;
+            padding: 30px;
+            border-top: 5px solid var(--accent);
+            font-weight: bold;
+            background: #fff;
         }
 
-        .source-label {
-            margin-top: auto;
+        /* HIỆU ỨNG KHI REFRESH */
+        .status-bar {
+            text-align: right;
             font-size: 0.8em;
+            margin-bottom: 10px;
             font-weight: bold;
             color: #666;
-            text-align: right;
         }
-
-        footer { margin-top: 60px; padding: 30px; border-top: 4px solid #000; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>📰 TIN TỨC KHÔNG NHIỄU</h1>
-        <p>Chọn lọc từ các nguồn uy tín dành riêng cho Nam</p>
+        <p>Hệ thống lọc tin tự động dành cho Trần Bảo Nam - Cập nhật 2026</p>
     </header>
 
-    <div class="news-grid">
+    <div class="container">
         
-        <a href="https://gamek.vn/one-piece-chap-1111-tran-chien-nghet-tho-1732403251500.chn" target="_blank" class="news-card">
-            <span class="category">ONE PIECE</span>
-            <h2>Phân tích Chap mới nhất: Sức mạnh thực sự của Ngũ Lão Tinh</h2>
-            <p>Những tình tiết mới nhất khiến cộng đồng fan đứng ngồi không yên về vận mệnh của đảo Egghead...</p>
-            <div class="source-label">Nguồn: GameK ↗</div>
-        </a>
+        <div class="news-section">
+            <div class="section-title">⚽ BÓNG ĐÁ QUỐC TẾ</div>
+            <iframe src="https://rss.app/embed/v1/list/tW9uGvX7Vz8P5r4N" title="Bóng đá"></iframe>
+        </div>
 
-        <a href="https://vnexpress.net/the-thao/bong-da/ngoai-hang-anh" target="_blank" class="news-card">
-            <span class="category">BÓNG ĐÁ</span>
-            <h2>Cập nhật Ngoại Hạng Anh: Cuộc đua tam mã cực kỳ căng thẳng</h2>
-            <p>Man City, Arsenal và Liverpool đang bám đuổi sát sao. Pep Guardiola nói gì về chặng đường cuối?</p>
-            <div class="source-label">Nguồn: VnExpress ↗</div>
-        </a>
+        <div class="news-section">
+            <div class="section-title">🏴‍☠️ ONE PIECE & GAME</div>
+            <iframe src="https://rss.app/embed/v1/list/tK2yLpM4Rz9Q1w6X" title="GameK"></iframe>
+        </div>
 
-        <a href="https://facebook.com/ChienThanLacHong" target="_blank" class="news-card">
-            <span class="category">TOKUSATSU</span>
-            <h2>Dự án Chiến Thần Lạc Hồng: Cập nhật tiến độ sản xuất bộ suit</h2>
-            <p>Đội ngũ sản xuất vừa hé lộ những hình ảnh hậu trường mới nhất về quá trình đúc giáp cho nhân vật chính...</p>
-            <div class="source-label">Nguồn: Fanpage Dự Án ↗</div>
-        </a>
-
-        <a href="https://tinhte.vn" target="_blank" class="news-card">
-            <span class="category">CÔNG NGHỆ</span>
-            <h2>Mẹo làm chủ Excel PivotTable trong 5 phút</h2>
-            <p>Cách xử lý dữ liệu lớn cực nhanh cho dân văn phòng và phân tích dữ liệu chuyên nghiệp...</p>
-            <div class="source-label">Nguồn: Tinh Tế ↗</div>
-        </a>
+        <div class="news-section">
+            <div class="section-title">⚡ TOKUSATSU & TECH</div>
+            <iframe src="https://rss.app/embed/v1/list/t0mJpL3HqR8S2w5V" title="Tech"></iframe>
+        </div>
 
     </div>
 
     <footer>
-        DESIGNED BY NAM KO HỀ | 2026
+        THIẾT KẾ BỞI NAM KO HỀ | DỮ LIỆU ĐƯỢC LỌC SẠCH 100%
     </footer>
 
 </body>
