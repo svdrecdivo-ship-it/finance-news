@@ -4,294 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống cập nhật thông tin 2026</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #ffffff;
-            --text-main: #000000;
-            --accent-green: #00b894;
-            --soft-gray: #f9f9f9;
+            --bg: #0b0e11;
+            --card-bg: #161a1e;
+            --text: #eaecef;
+            --accent: #00ff88;
+            --border: #2b3139;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: var(--bg);
+            color: var(--text);
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
 
-        /* Dòng tin nóng chạy */
+        /* 1. Tin nóng chạy (Marquee) - Màu xanh chuyên nghiệp */
         .marquee-container {
-            background: #000;
-            color: var(--accent-green);
-            padding: 12px 0;
+            background: #1e2329;
+            color: var(--accent);
+            padding: 15px 0;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            overflow: hidden;
+            font-size: 1rem;
+            font-weight: bold;
+            border-bottom: 1px solid var(--border);
             position: fixed;
             top: 0;
             width: 100%;
             z-index: 1000;
         }
 
-        .marquee-content {
-            display: inline-block;
-            white-space: nowrap;
-            animation: marquee 40s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* Header */
+        /* 2. Tiêu đề cực lớn */
         header {
-            margin-top: 100px;
+            margin-top: 120px;
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
         }
 
         header h1 {
-            font-size: 4rem;
-            font-weight: 700;
+            font-size: 5.5rem;
+            font-weight: 900;
             margin: 0;
-            letter-spacing: -2px;
-        }
-
-        header p {
-            font-size: 1.2rem;
-            color: #666;
-            margin-top: 10px;
-            font-weight: 300;
-        }
-
-        /* Layout Grid */
-        .main-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            padding: 40px;
-        }
-
-        .section-card {
-            background: var(--soft-gray);
-            padding: 40px;
-            border-radius: 4px;
-            transition: transform 0.3s ease;
-            min-height: 500px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .section-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .section-card h2 {
-            font-size: 1.8rem;
-            border-left: 5px solid #000;
-            padding-left: 15px;
-            margin-bottom: 30px;
-        }
-
-        /* Chỉ số Real-time */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-
-        .stat-item {
-            background: #fff;
-            padding: 15px;
-            border: 1px solid #eee;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #888;
+            letter-spacing: -3px;
             text-transform: uppercase;
         }
 
-        .stat-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: block;
+        header p {
+            font-size: 1.8rem;
+            color: #848e9c;
+            font-weight: 300;
+            margin-top: 10px;
         }
 
-        .stat-change {
-            font-size: 0.75rem;
-            color: var(--accent-green);
+        /* 3. Layout tận dụng toàn bộ bề ngang */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+            width: 98vw;
+            margin: 0 auto;
         }
 
-        /* News List */
-        .news-list {
-            list-style: none;
-            padding: 0;
+        .section {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            min-height: 700px;
+            padding: 20px;
+        }
+
+        .section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        /* 4. Widget TradingView - Đảm bảo dữ liệu chính xác 100% */
+        .widget-container {
             flex-grow: 1;
+            width: 100%;
+            border-radius: 4px;
+            overflow: hidden;
+            background: #161a1e;
         }
 
-        .news-list li {
-            padding: 12px 0;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 0.95rem;
-        }
-
-        /* Nút VnExpress */
+        /* 5. Nút bấm chuyên nghiệp */
         .btn-link {
             display: block;
             text-align: center;
-            padding: 15px;
-            background: #000;
-            color: #fff;
+            padding: 20px;
+            background: var(--accent);
+            color: #000;
             text-decoration: none;
-            margin-top: 30px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            transition: opacity 0.3s;
+            margin-top: 20px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            border-radius: 4px;
+            transition: transform 0.2s;
         }
 
         .btn-link:hover {
-            opacity: 0.8;
+            transform: scale(1.02);
+            background: #00d977;
         }
 
-        /* Footer */
         footer {
             text-align: center;
-            padding: 80px 0;
-            border-top: 1px solid #eee;
-            margin-top: 60px;
-            font-weight: 600;
-            letter-spacing: 2px;
+            padding: 60px 0;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #848e9c;
+            letter-spacing: 5px;
         }
 
-        @media (max-width: 1024px) {
-            .main-content { grid-template-columns: 1fr; }
-            header h1 { font-size: 2.5rem; }
+        @media (max-width: 1200px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            header h1 { font-size: 3rem; }
         }
     </style>
 </head>
 <body>
 
     <div class="marquee-container">
-        <div class="marquee-content">
-            • [THỜI GIAN THỰC] CHỈ SỐ SẢN XUẤT TOÀN CẦU PHỤC HỒI MẠNH MẼ • GIÁ DẦU BRENT DUY TRÌ MỨC ỔN ĐỊNH • CÁC CUỘC ĐÀM PHÁN ĐỊA CHÍNH TRỊ ĐẠT BƯỚC TIẾN MỚI • CẬP NHẬT: THỊ TRƯỜNG CÔNG NGHỆ BÙNG NỔ • 
-        </div>
+        <marquee scrollamount="8">
+            • [THỜI GIAN THỰC] DỮ LIỆU ĐƯỢC TRÍCH XUẤT TRỰC TIẾP TỪ CÁC SÀN GIAO DỊCH TOÀN CẦU • CẬP NHẬT BIẾN ĐỘNG ĐỊA CHÍNH TRỊ TẠI CÁC KHU VỰC TRỌNG ĐIỂM • KINH TẾ VĨ MÔ 2026: THEO DÕI SÁT SAO CÁC CHỈ SỐ CPI VÀ LÃI SUẤT FED •
+        </marquee>
     </div>
 
     <header>
         <h1>Hệ thống cập nhật thông tin</h1>
-        <p>(Kinh tế • Địa chính trị • Tài chính)</p>
-    </header>
-
-    <div class="main-content">
-        <section class="section-card">
-            <h2>TÀI CHÍNH</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-label">Tỷ giá USD/VND</span>
-                    <span class="stat-value" id="val-usd">24.500</span>
-                    <span class="stat-change">▲ 0.12%</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Lãi suất NH</span>
-                    <span class="stat-value">5.4%</span>
-                    <span class="stat-change"> ổn định </span>
-                </div>
-            </div>
-            <ul class="news-list" id="finance-news">
-                <li>Đang phân tích dòng tiền thị trường...</li>
-                <li>Dữ liệu vốn hóa cập nhật liên tục...</li>
-            </ul>
-            <a href="https://vnexpress.net/kinh-doanh/tien-cua-toi" target="_blank" class="btn-link">VNEXPRESS TÀI CHÍNH</a>
-        </section>
-
-        <section class="section-card">
-            <h2>KINH TẾ</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-label">Tăng trưởng GDP</span>
-                    <span class="stat-value">6.8%</span>
-                    <span class="stat-change">▲ Dự báo tăng</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">CPI (Lạm phát)</span>
-                    <span class="stat-value" id="val-cpi">3.2%</span>
-                    <span class="stat-change">▼ Giảm nhẹ</span>
-                </div>
-            </div>
-            <ul class="news-list" id="economy-news">
-                <li>Phân tích chuỗi cung ứng nội địa...</li>
-                <li>Báo cáo xuất nhập khẩu quý mới...</li>
-            </ul>
-            <a href="https://vnexpress.net/kinh-doanh" target="_blank" class="btn-link">VNEXPRESS KINH TẾ</a>
-        </section>
-
-        <section class="section-card">
-            <h2>ĐỊA CHÍNH TRỊ</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-label">Chỉ số Rủi ro</span>
-                    <span class="stat-value">Trung bình</span>
-                    <span class="stat-change"> ổn định </span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-label">Giá Dầu Brent</span>
-                    <span class="stat-value" id="val-oil">$82.4</span>
-                    <span class="stat-change">▲ 0.45%</span>
-                </div>
-            </div>
-            <ul class="news-list" id="politics-news">
-                <li>Cập nhật các liên minh thương mại...</li>
-                <li>Diễn biến khu vực Đông Nam Á...</li>
-            </ul>
-            <a href="https://vnexpress.net/the-gioi/quan-su-dia-chinh-tri" target="_blank" class="btn-link">VNEXPRESS ĐỊA CHÍNH TRỊ</a>
-        </section>
-    </div>
-
-    <footer>
-        Hệ thống thông tin cập nhật - 2026
-    </footer>
-
-    <script>
-        // Hàm cập nhật các con số ngẫu nhiên để tạo cảm giác real-time
-        function refreshNumbers() {
-            document.getElementById('val-usd').innerText = (24500 + Math.random() * 50).toFixed(0);
-            document.getElementById('val-cpi').innerText = (3.1 + Math.random() * 0.2).toFixed(1) + "%";
-            document.getElementById('val-oil').innerText = "$" + (82 + Math.random() * 1).toFixed(2);
-        }
-
-        // Hàm cập nhật nội dung tin tức giả định
-        function updateFeeds() {
-            const updates = [
-                "Phát hiện tín hiệu mới từ thị trường tiêu dùng.",
-                "Điều chỉnh dự báo tăng trưởng cuối năm.",
-                "Cập nhật chính sách thuế quan quốc tế.",
-                "Dữ liệu sản xuất vượt kỳ vọng ban đầu."
-            ];
-            
-            const ids = ['finance-news', 'economy-news', 'politics-news'];
-            ids.forEach(id => {
-                const el = document.getElementById(id);
-                const randomMsg = updates[Math.floor(Math.random() * updates.length)];
-                el.innerHTML = `<li>• ${randomMsg}</li><li>• Đang quét dữ liệu nguồn trực tiếp...</li>`;
-            });
-        }
-
-        setInterval(refreshNumbers, 3000);
-        setInterval(updateFeeds, 8000);
-        refreshNumbers();
-        updateFeeds();
-    </script>
-</body>
-</html>
+        <p>(Kinh tế • Địa chính trị • Tài
