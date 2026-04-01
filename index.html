@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIN TỨC KINH TẾ - ĐỊA CHÍNH TRỊ | NAM KO HỀ</title>
+    <title>TIN TỨC CHIẾN LƯỢC | NAM KO HỀ</title>
     <style>
         :root {
             --bg: #fdfcf0;
             --accent: #000;
             --card-bg: #ffffff;
-            --economic: #1a237e; /* Xanh đậm cho kinh tế */
-            --geopolitics: #b71c1c; /* Đỏ đậm cho địa chính trị */
-            --global: #1b5e20; /* Xanh lá cho thế giới */
+            --eco: #0d47a1;
+            --geo: #b71c1c;
+            --analysis: #1b5e20;
         }
 
         body {
-            font-family: 'Segoe UI', Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg);
             margin: 0; padding: 20px;
         }
 
         header {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px;
             background: #fff;
             border: 6px solid var(--accent);
             box-shadow: 10px 10px 0 var(--accent);
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         h1 { margin: 0; font-size: 2.2em; text-transform: uppercase; letter-spacing: 2px; }
@@ -45,9 +45,9 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            height: 750px;
             display: flex;
             flex-direction: column;
-            height: 700px;
         }
 
         .section-title {
@@ -56,16 +56,23 @@
             font-weight: 900;
             text-transform: uppercase;
             text-align: center;
-            letter-spacing: 1px;
             font-size: 1.1em;
         }
 
-        /* MÀU SẮC RIÊNG CHO TỪNG MỤC */
-        .title-eco { background: var(--economic); }
-        .title-geo { background: var(--geopolitics); }
-        .title-glo { background: var(--global); }
+        .title-eco { background: var(--eco); }
+        .title-geo { background: var(--geo); }
+        .title-ana { background: var(--analysis); }
 
-        iframe {
+        /* VÙNG CHỨA TIN TỰ ĐỘNG CÓ THANH CUỘN */
+        .feed-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 15px;
+            background: #fff;
+        }
+
+        /* Tùy chỉnh giao diện danh sách tin */
+        .feed-container iframe {
             width: 100%;
             height: 100%;
             border: none;
@@ -73,11 +80,10 @@
 
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 30px;
+            margin-top: 50px;
+            padding: 20px;
             border-top: 5px solid var(--accent);
             font-weight: bold;
-            background: #fff;
         }
     </style>
 </head>
@@ -85,30 +91,36 @@
 
     <header>
         <h1>📊 TRUNG TÂM TIN TỨC CHIẾN LƯỢC</h1>
-        <p>Kinh tế - Tài chính - Địa chính trị thế giới (Cập nhật tự động 2026)</p>
+        <p>Kinh tế - Địa chính trị - Tài chính (Tự động cập nhật 2026)</p>
     </header>
 
     <div class="container">
         
         <div class="news-section">
-            <div class="section-title title-eco">📈 KINH TẾ & TÀI CHÍNH</div>
-            <iframe src="https://rss.app/embed/v1/list/tW9uGvX7Vz8P5r4N" title="Economic News"></iframe>
+            <div class="section-title title-eco">📈 KINH TẾ THẾ GIỚI</div>
+            <div class="feed-container">
+                <iframe src="https://feed.mikle.com/widget/v2/161405/" ></iframe>
+            </div>
         </div>
 
         <div class="news-section">
-            <div class="section-title title-geo">🌍 ĐỊA CHÍNH TRỊ QUỐC TẾ</div>
-            <iframe src="https://rss.app/embed/v1/list/tK2yLpM4Rz9Q1w6X" title="Global Politics"></iframe>
+            <div class="section-title title-geo">🌍 ĐỊA CHÍNH TRỊ & THẾ GIỚI</div>
+            <div class="feed-container">
+                <iframe src="https://feed.mikle.com/widget/v2/161406/" ></iframe>
+            </div>
         </div>
 
         <div class="news-section">
-            <div class="section-title title-glo">⚖️ PHÂN TÍCH THỊ TRƯỜNG</div>
-            <iframe src="https://rss.app/embed/v1/list/t0mJpL3HqR8S2w5V" title="Market Analysis"></iframe>
+            <div class="section-title title-ana">⚖️ PHÂN TÍCH TÀI CHÍNH</div>
+            <div class="feed-container">
+                <iframe src="https://feed.mikle.com/widget/v2/161407/" ></iframe>
+            </div>
         </div>
 
     </div>
 
     <footer>
-        DESIGNED BY NAM KO HỀ | HỆ THỐNG LỌC TIN SẠCH 2026
+        HỆ THỐNG LỌC TIN SẠCH | DESIGNED BY NAM KO HỀ
     </footer>
 
 </body>
