@@ -3,188 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HỆ THỐNG CHIẾN LƯỢC BẢO NAM 2026</title>
+    <title>Bản tin Tổng hợp Real-time</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #ffffff;
-            --text: #1a1a1a;
-            --accent-blue: #0056b3;
-            --accent-red: #d32f2f;
-            --accent-green: #2e7d32;
-            --border: #ececec;
+            --bg-color: #ffffff;
+            --text-color: #1a1a1a;
+            --accent-green: #2ecc71;
+            --spacing: 40px;
         }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             margin: 0;
             padding: 0;
             line-height: 1.6;
         }
 
-        /* HEADER TỐI GIẢN */
-        header {
-            padding: 60px 20px;
-            text-align: center;
-            background: #fff;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            font-size: 1.1rem;
-            color: #666;
-            margin-top: 10px;
-        }
-
-        /* THANH TIN NÓNG CHỮ XANH - CHẠY LIÊN TỤC */
-        .ticker-container {
-            background: #000;
-            padding: 15px 0;
+        /* Dòng tin chạy (Marquee) */
+        .breaking-news {
+            background: #f8f9fa;
+            color: var(--accent-green);
+            padding: 10px 0;
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+            overflow: hidden;
+            white-space: nowrap;
             position: sticky;
             top: 0;
             z-index: 1000;
-            overflow: hidden;
         }
 
-        .ticker-content {
+        .marquee-content {
             display: inline-block;
-            white-space: nowrap;
-            animation: ticker 60s linear infinite;
-            color: #00ff00;
-            font-weight: bold;
-            font-size: 1.2rem;
+            animation: marquee 30s linear infinite;
         }
 
-        @keyframes ticker {
+        @keyframes marquee {
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
 
-        /* GRID THIẾT KẾ NHIỀU KHOẢNG TRỐNG */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 50px; /* Tạo khoảng trống lớn giữa các mảng */
-            padding: 40px 60px;
-            max-width: 1600px;
+        /* Layout */
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
+            padding: var(--spacing);
+        }
+
+        header {
+            margin-bottom: 80px; /* Tạo khoảng trống lớn bên dưới tiêu đề */
+            text-align: center;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px; /* Tăng khoảng cách giữa các cột */
         }
 
         .section-box {
-            background: #fff;
             padding: 20px;
-            border-radius: 12px;
-            transition: transform 0.3s ease;
         }
 
-        .section-title {
-            font-size: 1.5rem;
-            margin-bottom: 25px;
+        h2 {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 2px solid var(--text-color);
             padding-bottom: 10px;
-            border-bottom: 2px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .blue-t { color: var(--accent-blue); }
-        .red-t { color: var(--accent-red); }
-        .green-t { color: var(--accent-green); }
-
-        /* WIDGET AREA */
-        .realtime-widget {
-            width: 100%;
-            height: 450px;
-            background: #fafafa;
-            border-radius: 8px;
-            overflow: hidden;
             margin-bottom: 30px;
         }
 
-        /* NÚT TRUY CẬP VNEXPRESS */
-        .btn-link {
-            display: block;
-            text-align: center;
-            padding: 18px;
-            background: var(--text);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s;
+        /* Widget Placeholder */
+        .news-feed {
+            min-height: 400px;
+            font-size: 0.9rem;
+            color: #666;
         }
 
-        .btn-link:hover {
-            background: #444;
-            transform: translateY(-2px);
+        /* Nút bấm */
+        .btn-vnexpress {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: transparent;
+            border: 1px solid var(--text-color);
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.8rem;
+        }
+
+        .btn-vnexpress:hover {
+            background: var(--text-color);
+            color: #fff;
         }
 
         footer {
+            margin-top: 100px;
+            padding: 50px;
             text-align: center;
-            padding: 80px 20px;
-            color: #999;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        @media (max-width: 1100px) {
-            .dashboard-grid { grid-template-columns: 1fr; padding: 20px; }
+            font-size: 0.8rem;
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>TRUNG TÂM PHÂN TÍCH CHIẾN LƯỢC</h1>
-        <p class="subtitle">Hệ thống hỗ trợ quyết định dành cho Trần Bảo Nam (Cập nhật 2026)</p>
-    </header>
-
-    <div class="ticker-container">
-        <div class="ticker-content">
-            ⚡ TIN NÓNG 24H: Dòng vốn FDI tiếp tục đổ mạnh vào Việt Nam | VN-Index duy trì đà tăng trưởng kỷ lục | Tỷ giá USD/VND biến động theo sát thị trường quốc tế | Giá Vàng và Dầu thô phản ứng với các tin tức địa chính trị mới nhất | Các chỉ số vĩ mô 2026 đang cho thấy dấu hiệu tích cực...
+    <div class="breaking-news">
+        <div class="marquee-content" id="breaking-ticker">
+            Đang cập nhật tin tức nóng nhất từ thị trường... &nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp; Chỉ số kinh tế toàn cầu có biến động mới... &nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp; Tin tức địa chính trị nổi bật trong 24h qua...
         </div>
     </div>
 
-    <div class="dashboard-grid">
-        
-        <div class="section-box">
-            <div class="section-title blue-t">📈 KINH TẾ VĨ MÔ</div>
-            <div class="realtime-widget">
-                <iframe src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=vi&symbol=FX_IDC%3AUSDVND&width=100%25&height=100%25&colorTheme=light" frameborder="0" style="width:100%; height:100%"></iframe>
-            </div>
-            <a href="https://vnexpress.net/kinh-doanh/vi-mo" class="btn-link">XEM CHI TIẾT VĨ MÔ ↗</a>
-        </div>
+    <div class="container">
+        <header>
+            <h1>DASHBOARD 2026</h1>
+            <p>Thông tin cập nhật liên tục & tối giản</p>
+        </header>
 
-        <div class="section-box">
-            <div class="section-title red-t">🌍 ĐỊA CHÍNH TRỊ</div>
-            <div class="realtime-widget">
-                <iframe src="https://s.tradingview.com/embed-widget/technical-analysis/?locale=vi&symbol=TVC%3AUKOIL&width=100%25&height=100%25&colorTheme=light" frameborder="0" style="width:100%; height:100%"></iframe>
-            </div>
-            <a href="https://vnexpress.net/the-gioi" class="btn-link">BIẾN ĐỘNG QUỐC TẾ ↗</a>
-        </div>
+        <main class="grid-container">
+            <section class="section-box">
+                <h2>Tài Chính</h2>
+                <div class="news-feed">
+                    <p>Cập nhật dữ liệu thị trường, lãi suất và ngoại hối...</p>
+                    <ul id="finance-news">
+                        <li>Đang tải luồng dữ liệu...</li>
+                    </ul>
+                </div>
+                <a href="https://vnexpress.net/kinh-doanh/tien-cua-toi" target="_blank" class="btn-vnexpress">Truy cập VnExpress Tài chính</a>
+            </section>
 
-        <div class="section-box">
-            <div class="section-title green-t">⚖️ TÀI CHÍNH - ĐẦU TƯ</div>
-            <div class="realtime-widget">
-                <iframe src="https://s.tradingview.com/embed-widget/market-overview/?locale=vi&symbols=%5B%5B%22VN-Index%22%2C%22INDEX%3AVNINDEX%7C1D%22%5D%5D&width=100%25&height=100%25&colorTheme=light" frameborder="0" style="width:100%; height:100%"></iframe>
-            </div>
-            <a href="https://vnexpress.net/kinh-doanh/chung-khoan" class="btn-link">THỊ TRƯỜNG TÀI CHÍNH ↗</a>
-        </div>
+            <section class="section-box">
+                <h2>Kinh Tế</h2>
+                <div class="news-feed">
+                    <p>Phân tích vĩ mô, sản xuất và tiêu dùng...</p>
+                    <ul id="economy-news">
+                        <li>Đang tải luồng dữ liệu...</li>
+                    </ul>
+                </div>
+                <a href="https://vnexpress.net/kinh-doanh" target="_blank" class="btn-vnexpress">Truy cập VnExpress Kinh tế</a>
+            </section>
 
+            <section class="section-box">
+                <h2>Địa Chính Trị</h2>
+                <div class="news-feed">
+                    <p>Cập nhật tình hình quốc tế và các khu vực...</p>
+                    <ul id="politics-news">
+                        <li>Đang tải luồng dữ liệu...</li>
+                    </ul>
+                </div>
+                <a href="https://vnexpress.net/the-gioi/quan-su-dia-chinh-tri" target="_blank" class="btn-vnexpress">Truy cập VnExpress Thế giới</a>
+            </section>
+        </main>
     </div>
 
     <footer>
-        DESIGNED BY NAM KO HỀ | CLEAN DATA SYSTEM 2026
+        <p>© 2026 Personal Information Hub. Thiết kế tối giản.</p>
     </footer>
 
-</body>
-</html>
+    <script>
+        // Hàm mô phỏng cập nhật tin tức liên tục (Trong thực tế bạn nên dùng API như NewsAPI hoặc RSS to JSON)
+        function updateNews() {
+            const newsItems = [
+                "Cập nhật biến động giá năng lượng thế giới.",
+                "Báo cáo mới về tăng trưởng GDP khu vực.",
+                "Thay đổi chính sách thương mại quốc tế.",
+                "Dữ liệu lạm phát mới nhất vừa được công bố."
+            ];
+            
+            // Cập nhật ngẫu nhiên vào các mục để thấy sự thay đổi liên tục
+            const lists = ['finance-news', 'economy-news', 'politics-news'];
+            lists.forEach(id => {
+                const el = document.getElementById(id);
+                const randomNews = newsItems[Math.floor(Math.random() * newsItems.length)];
+                el.innerHTML = `<li>• ${randomNews}</li>
