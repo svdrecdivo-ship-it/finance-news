@@ -3,127 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TIN TỨC CHIẾN LƯỢC | NAM KO HỀ</title>
+    <title>TRUNG TÂM TIN TỨC CHIẾN LƯỢC | NAM KO HỀ</title>
     <style>
         :root {
             --bg: #fdfcf0;
             --accent: #000;
             --card-bg: #ffffff;
-            --eco: #0d47a1;
-            --geo: #b71c1c;
-            --analysis: #1b5e20;
+            --blue: #0d47a1;
+            --red: #b71c1c;
+            --green: #1b5e20;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background-color: var(--bg);
             margin: 0; padding: 20px;
         }
 
         header {
             text-align: center;
-            padding: 30px;
+            padding: 25px;
             background: #fff;
-            border: 6px solid var(--accent);
-            box-shadow: 10px 10px 0 var(--accent);
-            margin-bottom: 40px;
+            border: 5px solid var(--accent);
+            box-shadow: 8px 8px 0 var(--accent);
+            margin-bottom: 30px;
         }
 
-        h1 { margin: 0; font-size: 2.5em; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 2.2em; text-transform: uppercase; }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 25px;
         }
 
         .news-section {
             background: var(--card-bg);
-            border: 5px solid var(--accent);
-            border-radius: 15px;
+            border: 4px solid var(--accent);
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 12px 12px 0 rgba(0,0,0,0.1);
-            height: 800px; /* Tăng chiều cao để đọc sướng hơn */
+            box-shadow: 10px 10px 0 rgba(0,0,0,0.1);
+            height: 750px;
             display: flex;
             flex-direction: column;
         }
 
         .section-title {
             color: #fff;
-            padding: 18px;
+            padding: 15px;
             font-weight: 900;
             text-transform: uppercase;
             text-align: center;
-            font-size: 1.3em; /* Chữ tiêu đề to hơn */
-            letter-spacing: 1px;
+            font-size: 1.2em;
         }
 
-        .title-eco { background: var(--eco); }
-        .title-geo { background: var(--geo); }
-        .title-ana { background: var(--analysis); }
+        .bg-blue { background: var(--blue); }
+        .bg-red { background: var(--red); }
+        .bg-green { background: var(--green); }
 
-        /* TĂNG KÍCH THƯỚC NỘI DUNG TRONG IFRAME */
-        .feed-container {
+        /* KHUNG HIỂN THỊ TIN TỨC */
+        .feed-frame {
             flex-grow: 1;
-            padding: 0;
-            background: #fff;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
             border: none;
-            transform: scale(1.05); /* Phóng to nội dung iframe một chút */
-            transform-origin: 0 0;
-            width: 95.2%; /* Bù trừ cho việc scale để không bị mất lề */
+            width: 100%;
         }
 
         footer {
             text-align: center;
-            margin-top: 60px;
-            padding: 30px;
-            border-top: 6px solid var(--accent);
+            margin-top: 40px;
+            padding: 20px;
+            border-top: 4px solid var(--accent);
             font-weight: bold;
-            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>📊 TRUNG TÂM TIN TỨC CHIẾN LƯỢC</h1>
-        <p style="font-size: 1.1em; font-weight: bold;">Kinh tế - Địa chính trị - Tài chính (Nguồn báo Việt Nam)</p>
+        <h1>🏛️ TRUNG TÂM TIN TỨC CHIẾN LƯỢC</h1>
+        <p>Kinh tế - Địa chính trị - Tài chính (Cập nhật 2026)</p>
     </header>
 
     <div class="container">
         
         <div class="news-section">
-            <div class="section-title title-eco">📈 KINH TẾ VIỆT NAM & TG</div>
-            <div class="feed-container">
-                <iframe src="https://rss.app/embed/v1/list/D9u8jR0XG8u7WJ6O"></iframe>
-            </div>
+            <div class="section-title bg-blue">📈 KINH TẾ QUỐC TẾ</div>
+            <iframe class="feed-frame" src="https://www.bing.com/news/search?q=kinh+tế+thế+giới&format=rss&setmkt=vi-vn" ></iframe>
         </div>
 
         <div class="news-section">
-            <div class="section-title title-geo">🌍 ĐỊA CHÍNH TRỊ QUỐC TẾ</div>
-            <div class="feed-container">
-                <iframe src="https://rss.app/embed/v1/list/mN8m875C96Z7I1uD"></iframe>
-            </div>
+            <div class="section-title bg-red">🌍 ĐỊA CHÍNH TRỊ</div>
+            <iframe class="feed-frame" src="https://www.bing.com/news/search?q=địa+chính+trị+toàn+cầu&format=rss&setmkt=vi-vn" ></iframe>
         </div>
 
         <div class="news-section">
-            <div class="section-title title-ana">⚖️ TÀI CHÍNH - ĐẦU TƯ</div>
-            <div class="feed-container">
-                <iframe src="https://rss.app/embed/v1/list/vT6r4G2N0y2V9X7A"></iframe>
-            </div>
+            <div class="section-title bg-green">⚖️ TÀI CHÍNH - THỊ TRƯỜNG</div>
+            <iframe class="feed-frame" src="https://www.bing.com/news/search?q=thị+trường+tài+chính&format=rss&setmkt=vi-vn" ></iframe>
         </div>
 
     </div>
 
     <footer>
-        HỆ THỐNG LỌC TIN SẠCH | DESIGNED BY NAM KO HỀ | 2026
+        DESIGNED BY NAM KO HỀ | CÔNG CỤ LỌC TIN 2026
     </footer>
 
 </body>
