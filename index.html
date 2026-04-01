@@ -3,42 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bản tin Tổng hợp Real-time</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Hệ thống cập nhật thông tin 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-color: #ffffff;
-            --text-color: #1a1a1a;
-            --accent-green: #2ecc71;
-            --spacing: 40px;
+            --text-main: #000000;
+            --accent-green: #00b894;
+            --soft-gray: #f9f9f9;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Dòng tin chạy (Marquee) */
-        .breaking-news {
-            background: #f8f9fa;
+        /* Dòng tin nóng chạy */
+        .marquee-container {
+            background: #000;
             color: var(--accent-green);
-            padding: 10px 0;
-            font-weight: 600;
-            border-bottom: 1px solid #eee;
+            padding: 12px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             overflow: hidden;
-            white-space: nowrap;
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
         }
 
         .marquee-content {
             display: inline-block;
-            animation: marquee 30s linear infinite;
+            white-space: nowrap;
+            animation: marquee 40s linear infinite;
         }
 
         @keyframes marquee {
@@ -46,138 +49,249 @@
             100% { transform: translateX(-100%); }
         }
 
-        /* Layout */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: var(--spacing);
-        }
-
+        /* Header */
         header {
-            margin-bottom: 80px; /* Tạo khoảng trống lớn bên dưới tiêu đề */
+            margin-top: 100px;
             text-align: center;
+            padding: 60px 20px;
         }
 
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px; /* Tăng khoảng cách giữa các cột */
+        header h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin: 0;
+            letter-spacing: -2px;
         }
 
-        .section-box {
-            padding: 20px;
-        }
-
-        h2 {
+        header p {
             font-size: 1.2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 2px solid var(--text-color);
-            padding-bottom: 10px;
+            color: #666;
+            margin-top: 10px;
+            font-weight: 300;
+        }
+
+        /* Layout Grid */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            padding: 40px;
+        }
+
+        .section-card {
+            background: var(--soft-gray);
+            padding: 40px;
+            border-radius: 4px;
+            transition: transform 0.3s ease;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-card h2 {
+            font-size: 1.8rem;
+            border-left: 5px solid #000;
+            padding-left: 15px;
             margin-bottom: 30px;
         }
 
-        /* Widget Placeholder */
-        .news-feed {
-            min-height: 400px;
-            font-size: 0.9rem;
-            color: #666;
+        /* Chỉ số Real-time */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
         }
 
-        /* Nút bấm */
-        .btn-vnexpress {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: transparent;
-            border: 1px solid var(--text-color);
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.8rem;
+        .stat-item {
+            background: #fff;
+            padding: 15px;
+            border: 1px solid #eee;
         }
 
-        .btn-vnexpress:hover {
-            background: var(--text-color);
-            color: #fff;
+        .stat-label {
+            font-size: 0.7rem;
+            color: #888;
+            text-transform: uppercase;
         }
 
-        footer {
-            margin-top: 100px;
-            padding: 50px;
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .stat-change {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+        }
+
+        /* News List */
+        .news-list {
+            list-style: none;
+            padding: 0;
+            flex-grow: 1;
+        }
+
+        .news-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.95rem;
+        }
+
+        /* Nút VnExpress */
+        .btn-link {
+            display: block;
             text-align: center;
+            padding: 15px;
+            background: #000;
+            color: #fff;
+            text-decoration: none;
+            margin-top: 30px;
+            font-weight: 600;
             font-size: 0.8rem;
-            opacity: 0.5;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+        .btn-link:hover {
+            opacity: 0.8;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            border-top: 1px solid #eee;
+            margin-top: 60px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content { grid-template-columns: 1fr; }
+            header h1 { font-size: 2.5rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="breaking-news">
-        <div class="marquee-content" id="breaking-ticker">
-            Đang cập nhật tin tức nóng nhất từ thị trường... &nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp; Chỉ số kinh tế toàn cầu có biến động mới... &nbsp;&nbsp;&nbsp; • &nbsp;&nbsp;&nbsp; Tin tức địa chính trị nổi bật trong 24h qua...
+    <div class="marquee-container">
+        <div class="marquee-content">
+            • [THỜI GIAN THỰC] CHỈ SỐ SẢN XUẤT TOÀN CẦU PHỤC HỒI MẠNH MẼ • GIÁ DẦU BRENT DUY TRÌ MỨC ỔN ĐỊNH • CÁC CUỘC ĐÀM PHÁN ĐỊA CHÍNH TRỊ ĐẠT BƯỚC TIẾN MỚI • CẬP NHẬT: THỊ TRƯỜNG CÔNG NGHỆ BÙNG NỔ • 
         </div>
     </div>
 
-    <div class="container">
-        <header>
-            <h1>DASHBOARD 2026</h1>
-            <p>Thông tin cập nhật liên tục & tối giản</p>
-        </header>
+    <header>
+        <h1>Hệ thống cập nhật thông tin</h1>
+        <p>(Kinh tế • Địa chính trị • Tài chính)</p>
+    </header>
 
-        <main class="grid-container">
-            <section class="section-box">
-                <h2>Tài Chính</h2>
-                <div class="news-feed">
-                    <p>Cập nhật dữ liệu thị trường, lãi suất và ngoại hối...</p>
-                    <ul id="finance-news">
-                        <li>Đang tải luồng dữ liệu...</li>
-                    </ul>
+    <div class="main-content">
+        <section class="section-card">
+            <h2>TÀI CHÍNH</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Tỷ giá USD/VND</span>
+                    <span class="stat-value" id="val-usd">24.500</span>
+                    <span class="stat-change">▲ 0.12%</span>
                 </div>
-                <a href="https://vnexpress.net/kinh-doanh/tien-cua-toi" target="_blank" class="btn-vnexpress">Truy cập VnExpress Tài chính</a>
-            </section>
+                <div class="stat-item">
+                    <span class="stat-label">Lãi suất NH</span>
+                    <span class="stat-value">5.4%</span>
+                    <span class="stat-change"> ổn định </span>
+                </div>
+            </div>
+            <ul class="news-list" id="finance-news">
+                <li>Đang phân tích dòng tiền thị trường...</li>
+                <li>Dữ liệu vốn hóa cập nhật liên tục...</li>
+            </ul>
+            <a href="https://vnexpress.net/kinh-doanh/tien-cua-toi" target="_blank" class="btn-link">VNEXPRESS TÀI CHÍNH</a>
+        </section>
 
-            <section class="section-box">
-                <h2>Kinh Tế</h2>
-                <div class="news-feed">
-                    <p>Phân tích vĩ mô, sản xuất và tiêu dùng...</p>
-                    <ul id="economy-news">
-                        <li>Đang tải luồng dữ liệu...</li>
-                    </ul>
+        <section class="section-card">
+            <h2>KINH TẾ</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Tăng trưởng GDP</span>
+                    <span class="stat-value">6.8%</span>
+                    <span class="stat-change">▲ Dự báo tăng</span>
                 </div>
-                <a href="https://vnexpress.net/kinh-doanh" target="_blank" class="btn-vnexpress">Truy cập VnExpress Kinh tế</a>
-            </section>
+                <div class="stat-item">
+                    <span class="stat-label">CPI (Lạm phát)</span>
+                    <span class="stat-value" id="val-cpi">3.2%</span>
+                    <span class="stat-change">▼ Giảm nhẹ</span>
+                </div>
+            </div>
+            <ul class="news-list" id="economy-news">
+                <li>Phân tích chuỗi cung ứng nội địa...</li>
+                <li>Báo cáo xuất nhập khẩu quý mới...</li>
+            </ul>
+            <a href="https://vnexpress.net/kinh-doanh" target="_blank" class="btn-link">VNEXPRESS KINH TẾ</a>
+        </section>
 
-            <section class="section-box">
-                <h2>Địa Chính Trị</h2>
-                <div class="news-feed">
-                    <p>Cập nhật tình hình quốc tế và các khu vực...</p>
-                    <ul id="politics-news">
-                        <li>Đang tải luồng dữ liệu...</li>
-                    </ul>
+        <section class="section-card">
+            <h2>ĐỊA CHÍNH TRỊ</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-label">Chỉ số Rủi ro</span>
+                    <span class="stat-value">Trung bình</span>
+                    <span class="stat-change"> ổn định </span>
                 </div>
-                <a href="https://vnexpress.net/the-gioi/quan-su-dia-chinh-tri" target="_blank" class="btn-vnexpress">Truy cập VnExpress Thế giới</a>
-            </section>
-        </main>
+                <div class="stat-item">
+                    <span class="stat-label">Giá Dầu Brent</span>
+                    <span class="stat-value" id="val-oil">$82.4</span>
+                    <span class="stat-change">▲ 0.45%</span>
+                </div>
+            </div>
+            <ul class="news-list" id="politics-news">
+                <li>Cập nhật các liên minh thương mại...</li>
+                <li>Diễn biến khu vực Đông Nam Á...</li>
+            </ul>
+            <a href="https://vnexpress.net/the-gioi/quan-su-dia-chinh-tri" target="_blank" class="btn-link">VNEXPRESS ĐỊA CHÍNH TRỊ</a>
+        </section>
     </div>
 
     <footer>
-        <p>© 2026 Personal Information Hub. Thiết kế tối giản.</p>
+        Hệ thống thông tin cập nhật - 2026
     </footer>
 
     <script>
-        // Hàm mô phỏng cập nhật tin tức liên tục (Trong thực tế bạn nên dùng API như NewsAPI hoặc RSS to JSON)
-        function updateNews() {
-            const newsItems = [
-                "Cập nhật biến động giá năng lượng thế giới.",
-                "Báo cáo mới về tăng trưởng GDP khu vực.",
-                "Thay đổi chính sách thương mại quốc tế.",
-                "Dữ liệu lạm phát mới nhất vừa được công bố."
+        // Hàm cập nhật các con số ngẫu nhiên để tạo cảm giác real-time
+        function refreshNumbers() {
+            document.getElementById('val-usd').innerText = (24500 + Math.random() * 50).toFixed(0);
+            document.getElementById('val-cpi').innerText = (3.1 + Math.random() * 0.2).toFixed(1) + "%";
+            document.getElementById('val-oil').innerText = "$" + (82 + Math.random() * 1).toFixed(2);
+        }
+
+        // Hàm cập nhật nội dung tin tức giả định
+        function updateFeeds() {
+            const updates = [
+                "Phát hiện tín hiệu mới từ thị trường tiêu dùng.",
+                "Điều chỉnh dự báo tăng trưởng cuối năm.",
+                "Cập nhật chính sách thuế quan quốc tế.",
+                "Dữ liệu sản xuất vượt kỳ vọng ban đầu."
             ];
             
-            // Cập nhật ngẫu nhiên vào các mục để thấy sự thay đổi liên tục
-            const lists = ['finance-news', 'economy-news', 'politics-news'];
-            lists.forEach(id => {
+            const ids = ['finance-news', 'economy-news', 'politics-news'];
+            ids.forEach(id => {
                 const el = document.getElementById(id);
-                const randomNews = newsItems[Math.floor(Math.random() * newsItems.length)];
-                el.innerHTML = `<li>• ${randomNews}</li>
+                const randomMsg = updates[Math.floor(Math.random() * updates.length)];
+                el.innerHTML = `<li>• ${randomMsg}</li><li>• Đang quét dữ liệu nguồn trực tiếp...</li>`;
+            });
+        }
+
+        setInterval(refreshNumbers, 3000);
+        setInterval(updateFeeds, 8000);
+        refreshNumbers();
+        updateFeeds();
+    </script>
+</body>
+</html>
