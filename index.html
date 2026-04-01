@@ -3,51 +3,163 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bloomberg Mini Terminal</title>
+<title>Nam Terminal Pro</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-body{margin:0;font-family:Inter;background:#0b0f14;color:#e6e6e6}
-header{padding:20px;text-align:center;background:#111}
-header h1{margin:0;font-size:26px}
+:root{
+  --bg:#0b0f14;
+  --panel:#121821;
+  --text:#e6e6e6;
+  --green:#00ff9c;
+  --red:#ff4d4d;
+}
 
-.ticker{background:#000;color:#00ff9c;padding:8px;font-family:monospace;white-space:nowrap;overflow:hidden}
+body{
+  margin:0;
+  font-family:Inter;
+  background:var(--bg);
+  color:var(--text);
+}
 
-.grid{display:grid;grid-template-columns:2fr 1fr;gap:10px;padding:10px}
+header{
+  padding:20px;
+  text-align:center;
+  background:#0f141c;
+  border-bottom:1px solid #1f2a36;
+}
 
-.panel{background:#111;border-radius:10px;padding:10px}
+header h1{
+  margin:0;
+  font-size:26px;
+  letter-spacing:1px;
+}
 
-.table{width:100%;font-size:13px}
-.table tr{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid #222}
-.green{color:#00ff9c}
-.red{color:#ff4d4d}
+.ticker{
+  background:#000;
+  color:var(--green);
+  padding:8px;
+  font-family:monospace;
+  white-space:nowrap;
+  overflow:hidden;
+}
 
-.heatmap{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.box{padding:10px;border-radius:6px;text-align:center;font-size:13px}
+.container{
+  display:grid;
+  grid-template-columns:2fr 1fr;
+  gap:12px;
+  padding:12px;
+}
 
-footer{text-align:center;padding:10px;background:#000}
+.panel{
+  background:var(--panel);
+  border-radius:12px;
+  padding:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,0.4);
+}
+
+.panel h3{
+  margin:0 0 10px;
+  font-size:16px;
+  border-bottom:1px solid #1f2a36;
+  padding-bottom:6px;
+}
+
+.table{
+  width:100%;
+  font-size:13px;
+}
+
+.table tr{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  border-bottom:1px solid #1a222c;
+}
+
+.green{color:var(--green)}
+.red{color:var(--red)}
+
+.grid-2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.card{
+  background:#0f141c;
+  padding:10px;
+  border-radius:8px;
+  text-align:center;
+}
+
+.value{
+  font-size:18px;
+  font-weight:600;
+}
+
+.heatmap{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px;
+}
+
+.box{
+  padding:12px;
+  border-radius:6px;
+  font-size:13px;
+}
+
+footer{
+  text-align:center;
+  padding:10px;
+  background:#000;
+  font-size:13px;
+}
+
 </style>
 </head>
 <body>
 
 <header>
-<h1>📊 BLOOMBERG MINI TERMINAL - NAM</h1>
+<h1>📊 NAM TERMINAL PRO</h1>
 </header>
 
-<div class="ticker" id="ticker">Loading...</div>
+<div class="ticker" id="ticker">Loading market...</div>
 
-<div class="grid">
+<div class="container">
 
-<!-- LEFT: MARKET TABLE -->
+<!-- LEFT -->
 <div class="panel">
-<h3>Top cổ phiếu (VN)</h3>
+<h3>📈 VN30 MARKET</h3>
 <table class="table" id="stocks"></table>
 </div>
 
-<!-- RIGHT: HEATMAP -->
+<!-- RIGHT -->
 <div class="panel">
-<h3>Heatmap ngành</h3>
+<h3>🌐 GLOBAL DATA</h3>
+<div class="grid-2">
+  <div class="card">
+    USD/VND
+    <div class="value" id="usd"></div>
+  </div>
+  <div class="card">
+    GOLD
+    <div class="value" id="gold"></div>
+  </div>
+  <div class="card">
+    OIL
+    <div class="value" id="oil"></div>
+  </div>
+  <div class="card">
+    EUR/USD
+    <div class="value" id="eur"></div>
+  </div>
+</div>
+
+<h3 style="margin-top:15px">🔥 HEATMAP</h3>
 <div class="heatmap" id="heatmap"></div>
+
 </div>
 
 </div>
@@ -58,62 +170,66 @@ Trang web được thiết kế bởi Nam ko Hề
 
 <script>
 
-const stockList = ["VCB","BID","CTG","HPG","VNM","FPT","MWG","GAS","SSI"];
+const symbols=["VCB","BID","CTG","HPG","FPT","MWG","GAS","SSI","VNM"];
 
 async function loadStocks(){
-  let html="";
+  try{
+    const url="https://api.allorigins.win/raw?url=https://priceboard.vcbs.com.vn/api/price?codes="+symbols.join(",");
+    const res=await fetch(url);
+    const data=await res.json();
 
-  stockList.forEach(s=>{
-    let price = (Math.random()*100+20).toFixed(2);
-    let change = (Math.random()*4-2).toFixed(2);
+    let html="";
+    data.forEach(s=>{
+      let price=s.matchPrice||0;
+      let change=s.change||0;
+      html+=`<tr>
+        <td>${s.symbol}</td>
+        <td class="${change>=0?'green':'red'}">${price} (${change})</td>
+      </tr>`;
+    });
 
-    html += `<tr>
-      <td>${s}</td>
-      <td class="${change>0?'green':'red'}">${price} (${change}%)</td>
-    </tr>`;
-  });
-
-  document.getElementById("stocks").innerHTML = html;
+    document.getElementById("stocks").innerHTML=html;
+  }catch{}
 }
 
-function loadHeatmap(){
-  const sectors = [
-    {name:"Bank", val:Math.random()},
-    {name:"Oil", val:Math.random()},
-    {name:"Steel", val:Math.random()},
-    {name:"Retail", val:Math.random()},
-    {name:"Tech", val:Math.random()},
-    {name:"Export", val:Math.random()}
-  ];
+async function loadGlobal(){
+  const res=await fetch('https://api.exchangerate.host/latest?base=USD&symbols=VND,EUR');
+  const d=await res.json();
 
+  document.getElementById("usd").innerText=d.rates.VND.toFixed(0);
+  document.getElementById("eur").innerText=(1/d.rates.EUR).toFixed(2);
+
+  let gold=2300+Math.random()*30;
+  let oil=85+Math.random()*10;
+
+  document.getElementById("gold").innerText=gold.toFixed(0);
+  document.getElementById("oil").innerText=oil.toFixed(0);
+
+  document.getElementById("ticker").innerText=`USD/VND ${d.rates.VND.toFixed(0)} | GOLD ${gold.toFixed(0)} | OIL ${oil.toFixed(0)}`;
+}
+
+function heatmap(){
+  const sectors=["Bank","Oil","Steel","Tech","Retail","Export"];
   let html="";
+
   sectors.forEach(s=>{
-    let green = Math.floor(255*s.val);
-    let red = 255-green;
-    html += `<div class="box" style="background:rgb(${red},${green},80)">${s.name}</div>`;
+    let val=Math.random();
+    let g=Math.floor(255*val);
+    let r=255-g;
+    html+=`<div class="box" style="background:rgb(${r},${g},80)">${s}</div>`;
   });
 
-  document.getElementById("heatmap").innerHTML = html;
+  document.getElementById("heatmap").innerHTML=html;
 }
 
-async function loadTicker(){
-  const res = await fetch('https://api.exchangerate.host/latest?base=USD&symbols=VND,EUR');
-  const data = await res.json();
-
-  let usd = data.rates.VND.toFixed(0);
-  let eur = (1/data.rates.EUR).toFixed(2);
-
-  document.getElementById("ticker").innerText = `USD/VND: ${usd} | EUR/USD: ${eur} | GOLD ~ 2300 | OIL ~ 90`;
-}
-
-function refresh(){
+function run(){
   loadStocks();
-  loadHeatmap();
-  loadTicker();
+  loadGlobal();
+  heatmap();
 }
 
-refresh();
-setInterval(refresh,10000);
+run();
+setInterval(run,15000);
 
 </script>
 
