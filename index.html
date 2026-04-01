@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TIN TỨC ĐẦU BÒ - KHÔNG NHIỄU</title>
+    <style>
+        :root {
+            --bg: #f4f4f4;
+            --card-bg: #ffffff;
+            --text: #333;
+            --accent: #000;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0; padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 5px solid var(--accent);
+            margin-bottom: 40px;
+            background: #fff;
+        }
+
+        h1 { margin: 0; font-size: 2.5em; text-transform: uppercase; letter-spacing: 3px; }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .news-card {
+            background: var(--card-bg);
+            border: 3px solid var(--accent);
+            padding: 20px;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.1);
+        }
+
+        .news-card:hover {
+            transform: translate(-5px, -5px);
+            box-shadow: 15px 15px 0px var(--accent);
+        }
+
+        .category {
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            display: inline-block;
+        }
+
+        .news-card h2 {
+            margin: 10px 0;
+            font-size: 1.4em;
+            line-height: 1.3;
+        }
+
+        .news-card p {
+            color: #555;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+
+        .read-more {
+            margin-top: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            padding: 8px 15px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .read-more:hover { background: var(--accent); color: #fff; }
+
+        footer { text-align: center; margin-top: 50px; padding: 20px; border-top: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>📰 TIN TỨC KHÔNG NHIỄU</h1>
+        <p>Cập nhật thông tin nhanh, gọn, xác thực cho Trần Bảo Nam</p>
+    </header>
+
+    <div class="news-grid">
+        <article class="news-card">
+            <span class="category">Công nghệ</span>
+            <h2>One Piece Chap mới: Tiết lộ chấn động về kho báu</h2>
+            <p>Những thông tin mới nhất về hành trình của Luffy và đồng đội tại đảo Elbaf đang làm dậy sóng cộng đồng fan...</p>
+            <a href="#" class="read-more">ĐỌC TIẾP</a>
+        </article>
+
+        <article class="news-card">
+            <span class="category">Bóng đá</span>
+            <h2>Manchester City thiết lập kỷ lục mới tại Premier League</h2>
+            <p>Đội quân của Pep Guardiola tiếp tục cho thấy sự thống trị tuyệt đối với chuỗi trận thắng ấn tượng...</p>
+            <a href="#" class="read-more">ĐỌC TIẾP</a>
+        </article>
+
+        <article class="news-card">
+            <span class="category">Đời sống</span>
+            <h2>Xu hướng Tokusatsu Việt Nam năm 2026</h2>
+            <p>Các dự án như Chiến Thần Lạc Hồng đang mở ra một kỷ nguyên mới cho dòng phim siêu anh hùng tại Việt Nam...</p>
+            <a href="#" class="read-more">ĐỌC TIẾP</a>
+        </article>
+
+        </div>
+
+    <footer>
+        <p>© 2026 Designed by Nam Ko Hề | Hệ thống lọc tin tự động</p>
+    </footer>
+
+</body>
+</html>
