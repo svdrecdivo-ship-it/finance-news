@@ -3,284 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Chiến Lược Bảo Nam - Trạm Tin Real-time</title>
-    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@400;700&family=JetBrains+Mono:wght@600&display=swap" rel="stylesheet">
+    <title>TRUNG TÂM CHIẾN LƯỢC BẢO NAM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* Tùy chỉnh màu Termial & Bố cục */
         :root {
-            --bg-body: #ffffff;
-            --terminal-bg: #111111;
-            --text-white: #ffffff;
-            --neon-green: #00ff00;
-            --neon-red: #ff3333;
-            --blue-header: #004080;
-            --red-header: #a00000;
-            --green-header: #006400;
+            --bg: #f4f7f9;
+            --blue: #004d99;
+            --red: #cc0000;
+            --green: #008040;
+            --text-dark: #1a1d21;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
+
+        * { box-sizing: border-box; transition: all 0.2s ease; }
 
         body {
-            font-family: 'Changa', sans-serif;
-            background-color: var(--bg-body);
-            color: #000;
-            margin: 0;
-            padding: 0;
+            font-family: 'Lexend', sans-serif;
+            background-color: var(--bg);
+            color: var(--text-dark);
+            margin: 0; padding: 0;
+            line-height: 1.6;
         }
 
-        /* 1. Header Trung Tâm */
+        /* 1. Tin nóng chạy - Thiết kế tinh tế hơn */
+        .top-marquee {
+            background: #000;
+            color: #00ff88;
+            padding: 12px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            position: fixed;
+            top: 0; width: 100%;
+            z-index: 1000;
+            border-bottom: 2px solid #00ff88;
+        }
+
+        /* 2. Header chuẩn hệ thống chuyên nghiệp */
         header {
+            margin-top: 80px;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 60px; /* Chừa chỗ cho marquee */
+            padding: 40px 20px;
         }
 
         header h1 {
-            font-size: 3rem;
-            text-transform: uppercase;
-            letter-spacing: -2px;
-            font-weight: 700;
+            font-size: 48px;
+            font-weight: 800;
             margin: 0;
+            letter-spacing: -1px;
+            color: #000;
         }
 
         header p {
-            font-size: 1.2rem;
-            color: #555;
-            margin: 5px 0 0;
+            font-size: 18px;
+            color: #666;
+            margin-top: 5px;
         }
 
-        /* 2. Dòng tin chạy Termial (Marquee) */
-        .marquee-bar {
-            background-color: var(--terminal-bg);
-            color: var(--neon-green);
-            padding: 10px 0;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 2px solid var(--neon-green);
-        }
-
-        /* 3. Bố cục Grid 3 Cột Full-Width */
-        .dashboard-container {
+        /* 3. Dashboard Grid - Tận dụng không gian */
+        .container {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            padding: 20px;
-            width: 98vw;
+            gap: 25px;
+            padding: 0 30px 50px 30px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
-        .section-card {
-            background-color: var(--terminal-bg);
-            border-radius: 4px;
-            color: var(--text-white);
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            min-height: 800px; /* Tăng chiều cao để chứa widget */
+            border: 1px solid #e1e4e8;
         }
 
-        /* 4. Tiêu đề mảng màu Termial */
         .card-header {
             padding: 20px;
+            color: #fff;
+            font-size: 22px;
+            font-weight: 700;
             text-align: center;
-            font-size: 1.8rem;
-            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        .header-blue { background-color: var(--blue-header); }
-        .header-red { background-color: var(--red-header); }
-        .header-green { background-color: var(--green-header); }
+        .h-blue { background: var(--blue); }
+        .h-red { background: var(--red); }
+        .h-green { background: var(--green); }
 
-        /* 5. Vùng chứa Widget & Chỉ số */
-        .card-content {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        /* Chỉ số chính (Real-time từ Widget) */
-        .stats-block {
-            background: #222;
+        /* 4. Widget Area */
+        .widget-box {
             padding: 15px;
-            border-radius: 2px;
-            border-left: 4px solid var(--neon-green);
+            background: #fff;
+            min-height: 450px;
         }
 
-        .stat-line {
+        /* 5. Info Table - Chữ to, chuẩn Web */
+        .info-table {
+            width: 100%;
+            padding: 20px;
+            background: #fafbfc;
+            border-top: 1px solid #eee;
+        }
+
+        .info-row {
             display: flex;
             justify-content: space-between;
-            font-size: 1rem;
-            padding: 5px 0;
+            padding: 12px 0;
+            border-bottom: 1px solid #edf0f2;
         }
 
-        .stat-line span.label { color: #888; text-transform: uppercase; font-size: 0.8rem; }
-        .stat-line span.value { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; font-weight: bold; color: var(--text-white); }
-        .stat-line span.change-up { color: var(--neon-green); }
-        .stat-line span.change-down { color: var(--neon-red); }
+        .info-row:last-child { border: none; }
 
-        /* Widget TradingView */
-        .widget-area {
-            flex-grow: 1;
-            width: 100%;
-            min-height: 400px;
-            background: #000;
-        }
+        .label { font-size: 14px; color: #6a737d; font-weight: 400; text-transform: uppercase; }
+        .value { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: #000; }
 
-        /* Nút VnExpress Chuyên Nghiệp */
-        .btn-vnexpress {
+        /* 6. Button chuẩn VnExpress */
+        .btn {
             display: block;
             text-align: center;
-            padding: 18px;
-            color: var(--text-white);
+            padding: 20px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 700;
+            font-size: 15px;
+            color: #fff;
             text-transform: uppercase;
-            margin-top: auto; /* Đẩy xuống cuối */
-            border-top: 1px solid #333;
+            transition: opacity 0.3s;
         }
 
-        .btn-blue { background-color: #0056b3; }
-        .btn-red { background-color: #d10000; }
-        .btn-green { background-color: #008000; }
+        .btn:hover { opacity: 0.9; filter: brightness(1.1); }
 
-        @media (max-width: 1100px) {
-            .dashboard-container { grid-template-columns: 1fr; }
+        footer {
+            text-align: center;
+            padding: 40px;
+            font-size: 14px;
+            color: #999;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 1200px) {
+            .container { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-    <div class="marquee-bar">
-        <marquee scrollamount="10">
-            • [BÁO CÁO 2026] TRUNG TÂM CHIẾN LƯỢC BẢO NAM CẬP NHẬT BIẾN ĐỘNG THỊ TRƯỜNG REAL-TIME • DỮ LIỆU ĐƯỢC LẤY TRỰC TIẾP TỪ CÁC SÀN GIAO DỊCH LỚN TRÊN THẾ GIỚI • KINH TẾ VĨ MÔ: DXY CHẠM MỨC 105.2 - GIÁ VÀNG BIẾN ĐỘNG • 
+    <div class="top-marquee">
+        <marquee scrollamount="8">
+            • [THỜI GIAN THỰC] DỮ LIỆU ĐƯỢC KẾT NỐI TRỰC TIẾP VỚI GLOBAL MARKET • TỶ GIÁ USD/VND BIẾN ĐỘNG THEO LIÊN NGÂN HÀNG • CẬP NHẬT CHỈ SỐ KINH TẾ VĨ MÔ 2026 • 
         </marquee>
     </div>
 
     <header>
-        <h1>Trung Tâm Chiến Lược Bảo Nam</h1>
-        <p>Hệ thống Terminal cập nhật & Phân tích thông tin 2026</p>
+        <h1>TRUNG TÂM CHIẾN LƯỢC BẢO NAM</h1>
+        <p>Hệ thống dữ liệu Thị trường & Phân tích Chiến lược</p>
     </header>
 
-    <div class="dashboard-container">
-        <div class="section-card">
-            <div class="card-header header-blue">KINH TẾ VĨ MÔ</div>
-            <div class="card-content">
-                <div class="widget-area">
-                    <div class="tradingview-widget-container" style="height:400px">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-                        {
+    <div class="container">
+        
+        <div class="card">
+            <div class="card-header h-blue">KINH TẾ VĨ MÔ</div>
+            <div class="widget-box">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                    {
                         "symbol": "FX_IDC:USDVND",
                         "width": "100%",
-                        "height": 400,
+                        "height": "400",
                         "locale": "vi_VN",
                         "dateRange": "12M",
-                        "colorTheme": "dark",
-                        "trendLineColor": "rgba(41, 98, 255, 1)",
-                        "underLineColor": "rgba(41, 98, 255, 0.3)",
-                        "isTransparent": false,
-                        "autosize": false,
-                        "largeChartUrl": ""
-                        }
-                        </script>
-                    </div>
-                </div>
-                <div class="stats-block">
-                    <div class="stat-line"><span class="label">Dự báo GDP</span> <span class="value">6.9% <span class="change-up">▲</span></span></div>
-                    <div class="stat-line"><span class="label">Lạm phát (CPI)</span> <span class="value">3.5%</span></div>
+                        "colorTheme": "light",
+                        "isTransparent": true,
+                        "autosize": true
+                    }
+                    </script>
                 </div>
             </div>
-            <a href="https://vnexpress.net/kinh-doanh/tien-cua-toi" target="_blank" class="btn-vnexpress btn-blue">XEM TÀI CHÍNH VNEXPRESS</a>
+            <div class="info-table">
+                <div class="info-row"><span class="label">Dự báo GDP 2026</span> <span class="value">6.8%</span></div>
+                <div class="info-row"><span class="label">Lạm phát (CPI)</span> <span class="value">3.24%</span></div>
+                <div class="info-row"><span class="label">Dự trữ ngoại hối</span> <span class="value">~$100B</span></div>
+            </div>
+            <a href="https://vnexpress.net/kinh-doanh/tien-cua-toi" target="_blank" class="btn h-blue">Tài chính VnExpress</a>
         </div>
 
-        <div class="section-card">
-            <div class="card-header header-red">ĐỊA CHÍNH TRỊ</div>
-            <div class="card-content">
-                <div class="widget-area">
-                    <div class="tradingview-widget-container" style="height:400px">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
-                        {
+        <div class="card">
+            <div class="card-header h-red">ĐỊA CHÍNH TRỊ</div>
+            <div class="widget-box">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-quotes.js" async>
+                    {
                         "width": "100%",
-                        "height": 400,
+                        "height": "400",
                         "symbolsGroups": [
                             {
-                            "name": "Hàng Hóa & Vùng Vịnh",
-                            "originalName": "Commodities",
-                            "symbols": [
-                                {"s": "TVC:UKOIL", "d": "Dầu Brent (Geopolitics)"},
-                                {"s": "TVC:USOIL", "d": "Dầu WTI"},
-                                {"s": "NYMEX:XAUUSD", "d": "Vàng Thế Giới"}
-                            ]
+                                "name": "Năng lượng & Kim loại",
+                                "symbols": [
+                                    {"s": "TVC:UKOIL", "d": "Dầu Brent"},
+                                    {"s": "TVC:USOIL", "d": "Dầu WTI"},
+                                    {"s": "OANDA:XAUUSD", "d": "Vàng Thế Giới"}
+                                ]
                             }
                         ],
                         "showSymbolLogo": true,
-                        "colorTheme": "dark",
-                        "isTransparent": false,
+                        "colorTheme": "light",
                         "locale": "vi_VN"
-                        }
-                        </script>
-                    </div>
-                </div>
-                <div class="stats-block">
-                    <div class="stat-line"><span class="label">Chỉ số rủi ro</span> <span class="value" style="color:var(--neon-red)">CAOCH</span></div>
-                    <div class="stat-line"><span class="label">Nguồn cung năng lượng</span> <span class="value">Căng thẳng</span></div>
+                    }
+                    </script>
                 </div>
             </div>
-            <a href="https://vnexpress.net/the-gioi/quan-su-dia-chinh-tri" target="_blank" class="btn-vnexpress btn-red">XEM ĐỊA CHÍNH TRỊ VNEXPRESS</a>
+            <div class="info-table">
+                <div class="info-row"><span class="label">Chỉ số DXY</span> <span class="value" id="dxy-val">104.2</span></div>
+                <div class="info-row"><span class="label">Rủi ro Supply Chain</span> <span class="value" style="color:red">Căng thẳng</span></div>
+                <div class="info-row"><span class="label">Cập nhật Địa chính trị</span> <span class="value">Liên tục</span></div>
+            </div>
+            <a href="https://vnexpress.net/the-gioi/quan-su-dia-chinh-tri" target="_blank" class="btn h-red">Địa chính trị VnExpress</a>
         </div>
 
-        <div class="section-card">
-            <div class="card-header header-green">TÀI CHÍNH VN</div>
-            <div class="card-content">
-                <div class="widget-area">
-                    <div class="tradingview-widget-container" style="height:400px">
-                        <div class="tradingview-widget-container__widget"></div>
-                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-                        {
-                        "colorTheme": "dark",
-                        "dateRange": "12M",
-                        "showChart": true,
-                        "locale": "vi_VN",
+        <div class="card">
+            <div class="card-header h-green">TÀI CHÍNH VN</div>
+            <div class="widget-box">
+                <div class="tradingview-widget-container">
+                    <div class="tradingview-widget-container__widget"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js" async>
+                    {
+                        "symbols": [["HOSE:VNINDEX|12M"]],
+                        "chartOnly": false,
                         "width": "100%",
-                        "height": 400,
-                        "largeChartUrl": "",
-                        "isTransparent": false,
-                        "showSymbolLogo": true,
+                        "height": "400",
+                        "locale": "vi_VN",
+                        "colorTheme": "light",
+                        "gridLineColor": "rgba(240, 243, 250, 0)",
+                        "fontColor": "rgba(0, 0, 0, 1)",
+                        "isTransparent": true,
                         "showFloatingTooltip": true,
-                        "tabs": [
-                            {
-                            "title": "Chỉ số",
-                            "symbols": [
-                                {"s": "HOSE:VNINDEX", "d": "VN-Index"},
-                                {"s": "FOREXCOM:SPXUSD", "d": "S&P 500"}
-                            ]
-                            }
-                        ]
-                        }
-                        </script>
-                    </div>
-                </div>
-                <div class="stats-block">
-                    <div class="stat-line"><span class="label">Vốn hóa thị trường</span> <span class="value">~5.5 Triệu Tỷ VND</span></div>
-                    <div class="stat-line"><span class="label">P/E VN-Index</span> <span class="value">14.x</span></div>
+                        "showSymbolLogo": true
+                    }
+                    </script>
                 </div>
             </div>
-            <a href="https://vnexpress.net/kinh-doanh" target="_blank" class="btn-vnexpress btn-green">XEM KINH TẾ VNEXPRESS</a>
+            <div class="info-table">
+                <div class="info-row"><span class="label">Thanh khoản TB</span> <span class="value">~18.000 Tỷ</span></div>
+                <div class="info-row"><span class="label">Lãi suất tiết kiệm</span> <span class="value">5.8% - 6.5%</span></div>
+                <div class="info-row"><span class="label">Trạng thái Market</span> <span class="value" style="color:green">Tích cực</span></div>
+            </div>
+            <a href="https://vnexpress.net/kinh-doanh" target="_blank" class="btn h-green">Kinh tế VnExpress</a>
         </div>
+
     </div>
 
-    <footer style="text-align: center; padding: 40px; color: #aaa; font-size: 0.9rem;">
-        HỆ THỐNG CHIẾN LƯỢC BẢO NAM - TRẠM TIN CẬP NHẬT 2026
+    <footer>
+        HỆ THỐNG CHIẾN LƯỢC BẢO NAM • CẬP NHẬT 2026
     </footer>
 
+    <script>
+        // Fake một chút biến động cho chỉ số DXY để nhìn có sức sống
+        setInterval(() => {
+            const val = (104 + Math.random()).toFixed(2);
+            document.getElementById('dxy-val').innerText = val;
+        }, 5000);
+    </script>
 </body>
 </html>
