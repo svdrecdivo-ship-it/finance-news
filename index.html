@@ -29,61 +29,64 @@
             margin-bottom: 40px;
         }
 
-        h1 { margin: 0; font-size: 2.2em; text-transform: uppercase; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 2.5em; text-transform: uppercase; letter-spacing: 2px; }
 
         .container {
-            max-width: 1300px;
+            max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
         }
 
         .news-section {
             background: var(--card-bg);
-            border: 4px solid var(--accent);
-            border-radius: 12px;
+            border: 5px solid var(--accent);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
-            height: 750px;
+            box-shadow: 12px 12px 0 rgba(0,0,0,0.1);
+            height: 800px; /* Tăng chiều cao để đọc sướng hơn */
             display: flex;
             flex-direction: column;
         }
 
         .section-title {
             color: #fff;
-            padding: 15px;
+            padding: 18px;
             font-weight: 900;
             text-transform: uppercase;
             text-align: center;
-            font-size: 1.1em;
+            font-size: 1.3em; /* Chữ tiêu đề to hơn */
+            letter-spacing: 1px;
         }
 
         .title-eco { background: var(--eco); }
         .title-geo { background: var(--geo); }
         .title-ana { background: var(--analysis); }
 
-        /* VÙNG CHỨA TIN TỰ ĐỘNG CÓ THANH CUỘN */
+        /* TĂNG KÍCH THƯỚC NỘI DUNG TRONG IFRAME */
         .feed-container {
             flex-grow: 1;
-            overflow-y: auto;
-            padding: 15px;
+            padding: 0;
             background: #fff;
         }
 
-        /* Tùy chỉnh giao diện danh sách tin */
-        .feed-container iframe {
+        iframe {
             width: 100%;
             height: 100%;
             border: none;
+            transform: scale(1.05); /* Phóng to nội dung iframe một chút */
+            transform-origin: 0 0;
+            width: 95.2%; /* Bù trừ cho việc scale để không bị mất lề */
         }
 
         footer {
             text-align: center;
-            margin-top: 50px;
-            padding: 20px;
-            border-top: 5px solid var(--accent);
+            margin-top: 60px;
+            padding: 30px;
+            border-top: 6px solid var(--accent);
             font-weight: bold;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -91,36 +94,36 @@
 
     <header>
         <h1>📊 TRUNG TÂM TIN TỨC CHIẾN LƯỢC</h1>
-        <p>Kinh tế - Địa chính trị - Tài chính (Tự động cập nhật 2026)</p>
+        <p style="font-size: 1.1em; font-weight: bold;">Kinh tế - Địa chính trị - Tài chính (Nguồn báo Việt Nam)</p>
     </header>
 
     <div class="container">
         
         <div class="news-section">
-            <div class="section-title title-eco">📈 KINH TẾ THẾ GIỚI</div>
+            <div class="section-title title-eco">📈 KINH TẾ VIỆT NAM & TG</div>
             <div class="feed-container">
-                <iframe src="https://feed.mikle.com/widget/v2/161405/" ></iframe>
+                <iframe src="https://rss.app/embed/v1/list/D9u8jR0XG8u7WJ6O"></iframe>
             </div>
         </div>
 
         <div class="news-section">
-            <div class="section-title title-geo">🌍 ĐỊA CHÍNH TRỊ & THẾ GIỚI</div>
+            <div class="section-title title-geo">🌍 ĐỊA CHÍNH TRỊ QUỐC TẾ</div>
             <div class="feed-container">
-                <iframe src="https://feed.mikle.com/widget/v2/161406/" ></iframe>
+                <iframe src="https://rss.app/embed/v1/list/mN8m875C96Z7I1uD"></iframe>
             </div>
         </div>
 
         <div class="news-section">
-            <div class="section-title title-ana">⚖️ PHÂN TÍCH TÀI CHÍNH</div>
+            <div class="section-title title-ana">⚖️ TÀI CHÍNH - ĐẦU TƯ</div>
             <div class="feed-container">
-                <iframe src="https://feed.mikle.com/widget/v2/161407/" ></iframe>
+                <iframe src="https://rss.app/embed/v1/list/vT6r4G2N0y2V9X7A"></iframe>
             </div>
         </div>
 
     </div>
 
     <footer>
-        HỆ THỐNG LỌC TIN SẠCH | DESIGNED BY NAM KO HỀ
+        HỆ THỐNG LỌC TIN SẠCH | DESIGNED BY NAM KO HỀ | 2026
     </footer>
 
 </body>
