@@ -1,237 +1,343 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nam Terminal Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
-<style>
-:root{
-  --bg:#0b0f14;
-  --panel:#121821;
-  --text:#e6e6e6;
-  --green:#00ff9c;
-  --red:#ff4d4d;
-}
-
-body{
-  margin:0;
-  font-family:Inter;
-  background:var(--bg);
-  color:var(--text);
-}
-
-header{
-  padding:20px;
-  text-align:center;
-  background:#0f141c;
-  border-bottom:1px solid #1f2a36;
-}
-
-header h1{
-  margin:0;
-  font-size:26px;
-  letter-spacing:1px;
-}
-
-.ticker{
-  background:#000;
-  color:var(--green);
-  padding:8px;
-  font-family:monospace;
-  white-space:nowrap;
-  overflow:hidden;
-}
-
-.container{
-  display:grid;
-  grid-template-columns:2fr 1fr;
-  gap:12px;
-  padding:12px;
-}
-
-.panel{
-  background:var(--panel);
-  border-radius:12px;
-  padding:12px;
-  box-shadow:0 4px 20px rgba(0,0,0,0.4);
-}
-
-.panel h3{
-  margin:0 0 10px;
-  font-size:16px;
-  border-bottom:1px solid #1f2a36;
-  padding-bottom:6px;
-}
-
-.table{
-  width:100%;
-  font-size:13px;
-}
-
-.table tr{
-  display:flex;
-  justify-content:space-between;
-  padding:6px 0;
-  border-bottom:1px solid #1a222c;
-}
-
-.green{color:var(--green)}
-.red{color:var(--red)}
-
-.grid-2{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-}
-
-.card{
-  background:#0f141c;
-  padding:10px;
-  border-radius:8px;
-  text-align:center;
-}
-
-.value{
-  font-size:18px;
-  font-weight:600;
-}
-
-.heatmap{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;
-}
-
-.box{
-  padding:12px;
-  border-radius:6px;
-  font-size:13px;
-}
-
-footer{
-  text-align:center;
-  padding:10px;
-  background:#000;
-  font-size:13px;
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bảng tin thời gian thực: Tài chính - Kinh tế - Địa chính trị | Cập nhật liên tục từ VNExpress">
+    <title>Bảng Tin Thời Gian Thực • Tài chính • Kinh tế • Địa chính trị</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Roboto+Mono:wght@400;500&amp;display=swap');
+        
+        :root {
+            --tw-color-primary: #1e40af;
+        }
+        
+        .tail-container * {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .header-font {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        /* Ticker animation */
+        .ticker-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        
+        .ticker-content {
+            display: inline-flex;
+            animation: marquee 35s linear infinite;
+        }
+        
+        @keyframes marquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        
+        .card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.15);
+        }
+        
+        .news-item {
+            transition: all 0.2s ease;
+        }
+        
+        .news-item:hover {
+            background-color: #f8fafc;
+        }
+        
+        /* Lots of whitespace */
+        .spacious {
+            padding-top: 6rem;
+            padding-bottom: 8rem;
+        }
+    </style>
 </head>
-<body>
+<body class="tail-container bg-slate-50 text-slate-900">
+    <!-- HEADER -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-screen-2xl mx-auto px-8 py-6 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-10 h-10 bg-[#1e40af] rounded-2xl flex items-center justify-center text-white text-2xl font-bold">📈</div>
+                <div>
+                    <h1 class="header-font text-3xl font-semibold tracking-tight">BẢNG TIN THỜI GIAN THỰC</h1>
+                    <p class="text-slate-500 text-sm -mt-1">Tài chính • Kinh tế • Địa chính trị</p>
+                </div>
+            </div>
+            
+            <!-- Real-time clock -->
+            <div class="hidden md:flex items-center gap-x-2 bg-slate-100 px-5 py-2 rounded-3xl text-sm font-medium">
+                <div class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></div>
+                <span id="live-clock" class="font-mono text-slate-600"></span>
+                <span class="text-emerald-600 font-medium">• Đang cập nhật liên tục</span>
+            </div>
+            
+            <div class="flex items-center gap-x-8 text-sm font-medium">
+                <a href="https://vnexpress.net" target="_blank" 
+                   class="flex items-center gap-x-1 text-slate-600 hover:text-[#1e40af]">
+                    <span>🌐</span> VNExpress
+                </a>
+                <a href="https://github.com" target="_blank" 
+                   class="flex items-center gap-x-1 text-slate-600 hover:text-[#1e40af]">
+                    <span>📦</span> GitHub Pages
+                </a>
+            </div>
+        </div>
+    </header>
 
-<header>
-<h1>📊 NAM TERMINAL PRO</h1>
-</header>
+    <!-- BLUE TICKER - TIN NÓNG -->
+    <div class="bg-[#1e40af] text-white py-3 shadow-inner">
+        <div class="max-w-screen-2xl mx-auto px-8 flex items-center gap-x-4">
+            <div class="flex-shrink-0 bg-white text-[#1e40af] text-xs font-bold px-4 py-1 rounded-full uppercase tracking-widest">
+                TIN NÓNG
+            </div>
+            <div id="ticker" class="ticker-container flex-1 overflow-hidden text-sm font-medium">
+                <div id="ticker-content" class="ticker-content">
+                    <!-- JS sẽ điền dữ liệu động -->
+                </div>
+            </div>
+        </div>
+    </div>
 
-<div class="ticker" id="ticker">Loading market...</div>
+    <!-- MAIN CONTENT - 3 MẢNG RỘNG RÃI -->
+    <main class="max-w-screen-2xl mx-auto px-8 spacious">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-16">
+            
+            <!-- MẢNG 1: TÀI CHÍNH -->
+            <div class="card bg-white rounded-3xl shadow-xl p-8 border border-transparent">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-x-3">
+                        <span class="text-4xl">💰</span>
+                        <h2 class="text-3xl font-semibold tracking-tight">Tài chính</h2>
+                    </div>
+                    <div id="finance-last-updated" class="text-xs font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-2xl font-mono">Đang tải...</div>
+                </div>
+                
+                <div id="finance-news" class="space-y-6 min-h-[420px]">
+                    <!-- JS sẽ render tin -->
+                </div>
+                
+                <!-- NÚT TRUY CẬP TRỰC TIẾP VNEXPRESS -->
+                <a href="https://vnexpress.net/kinh-doanh/tai-chinh" 
+                   target="_blank"
+                   class="mt-10 block w-full text-center bg-[#1e40af] hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl text-lg transition-all flex items-center justify-center gap-x-2">
+                    <span>📲 Truy cập trực tiếp Tài chính trên VNExpress</span>
+                    <span class="text-xl">→</span>
+                </a>
+            </div>
+            
+            <!-- MẢNG 2: KINH TẾ -->
+            <div class="card bg-white rounded-3xl shadow-xl p-8 border border-transparent">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-x-3">
+                        <span class="text-4xl">📊</span>
+                        <h2 class="text-3xl font-semibold tracking-tight">Kinh tế</h2>
+                    </div>
+                    <div id="economy-last-updated" class="text-xs font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-2xl font-mono">Đang tải...</div>
+                </div>
+                
+                <div id="economy-news" class="space-y-6 min-h-[420px]">
+                    <!-- JS sẽ render tin -->
+                </div>
+                
+                <!-- NÚT TRUY CẬP TRỰC TIẾP VNEXPRESS -->
+                <a href="https://vnexpress.net/kinh-doanh" 
+                   target="_blank"
+                   class="mt-10 block w-full text-center bg-[#1e40af] hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl text-lg transition-all flex items-center justify-center gap-x-2">
+                    <span>📲 Truy cập trực tiếp Kinh tế trên VNExpress</span>
+                    <span class="text-xl">→</span>
+                </a>
+            </div>
+            
+            <!-- MẢNG 3: ĐỊA CHÍNH TRỊ -->
+            <div class="card bg-white rounded-3xl shadow-xl p-8 border border-transparent">
+                <div class="flex items-center justify-between mb-8">
+                    <div class="flex items-center gap-x-3">
+                        <span class="text-4xl">🌍</span>
+                        <h2 class="text-3xl font-semibold tracking-tight">Địa chính trị</h2>
+                    </div>
+                    <div id="geopolitics-last-updated" class="text-xs font-medium bg-slate-100 text-slate-500 px-3 py-1 rounded-2xl font-mono">Đang tải...</div>
+                </div>
+                
+                <div id="geopolitics-news" class="space-y-6 min-h-[420px]">
+                    <!-- JS sẽ render tin -->
+                </div>
+                
+                <!-- NÚT TRUY CẬP TRỰC TIẾP VNEXPRESS -->
+                <a href="https://vnexpress.net/the-gioi" 
+                   target="_blank"
+                   class="mt-10 block w-full text-center bg-[#1e40af] hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl text-lg transition-all flex items-center justify-center gap-x-2">
+                    <span>📲 Truy cập trực tiếp Địa chính trị trên VNExpress</span>
+                    <span class="text-xl">→</span>
+                </a>
+            </div>
+        </div>
+    </main>
 
-<div class="container">
+    <!-- FOOTER - THÊM KHOẢNG TRỐNG -->
+    <footer class="bg-white border-t py-16">
+        <div class="max-w-screen-2xl mx-auto px-8 text-center text-slate-500 text-sm">
+            <p class="mb-2">Dữ liệu được cập nhật <strong>liên tục theo thời gian thực</strong> từ RSS của VNExpress qua proxy công khai.</p>
+            <p class="flex items-center justify-center gap-x-2">
+                <span class="inline-block w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                Hoạt động • Mỗi 120 giây tự động refresh
+            </p>
+            <p class="mt-8 text-xs">Thiết kế rộng rãi • Nhiều khoảng trống • GitHub Pages • Made for Trần Bảo Nam</p>
+        </div>
+    </footer>
 
-<!-- LEFT -->
-<div class="panel">
-<h3>📈 VN30 MARKET</h3>
-<table class="table" id="stocks"></table>
-</div>
-
-<!-- RIGHT -->
-<div class="panel">
-<h3>🌐 GLOBAL DATA</h3>
-<div class="grid-2">
-  <div class="card">
-    USD/VND
-    <div class="value" id="usd"></div>
-  </div>
-  <div class="card">
-    GOLD
-    <div class="value" id="gold"></div>
-  </div>
-  <div class="card">
-    OIL
-    <div class="value" id="oil"></div>
-  </div>
-  <div class="card">
-    EUR/USD
-    <div class="value" id="eur"></div>
-  </div>
-</div>
-
-<h3 style="margin-top:15px">🔥 HEATMAP</h3>
-<div class="heatmap" id="heatmap"></div>
-
-</div>
-
-</div>
-
-<footer>
-Trang web được thiết kế bởi Nam ko Hề
-</footer>
-
-<script>
-
-const symbols=["VCB","BID","CTG","HPG","FPT","MWG","GAS","SSI","VNM"];
-
-async function loadStocks(){
-  try{
-    const url="https://api.allorigins.win/raw?url=https://priceboard.vcbs.com.vn/api/price?codes="+symbols.join(",");
-    const res=await fetch(url);
-    const data=await res.json();
-
-    let html="";
-    data.forEach(s=>{
-      let price=s.matchPrice||0;
-      let change=s.change||0;
-      html+=`<tr>
-        <td>${s.symbol}</td>
-        <td class="${change>=0?'green':'red'}">${price} (${change})</td>
-      </tr>`;
-    });
-
-    document.getElementById("stocks").innerHTML=html;
-  }catch{}
-}
-
-async function loadGlobal(){
-  const res=await fetch('https://api.exchangerate.host/latest?base=USD&symbols=VND,EUR');
-  const d=await res.json();
-
-  document.getElementById("usd").innerText=d.rates.VND.toFixed(0);
-  document.getElementById("eur").innerText=(1/d.rates.EUR).toFixed(2);
-
-  let gold=2300+Math.random()*30;
-  let oil=85+Math.random()*10;
-
-  document.getElementById("gold").innerText=gold.toFixed(0);
-  document.getElementById("oil").innerText=oil.toFixed(0);
-
-  document.getElementById("ticker").innerText=`USD/VND ${d.rates.VND.toFixed(0)} | GOLD ${gold.toFixed(0)} | OIL ${oil.toFixed(0)}`;
-}
-
-function heatmap(){
-  const sectors=["Bank","Oil","Steel","Tech","Retail","Export"];
-  let html="";
-
-  sectors.forEach(s=>{
-    let val=Math.random();
-    let g=Math.floor(255*val);
-    let r=255-g;
-    html+=`<div class="box" style="background:rgb(${r},${g},80)">${s}</div>`;
-  });
-
-  document.getElementById("heatmap").innerHTML=html;
-}
-
-function run(){
-  loadStocks();
-  loadGlobal();
-  heatmap();
-}
-
-run();
-setInterval(run,15000);
-
-</script>
-
+    <script>
+        // Tailwind script init
+        function initializeTailwind() {
+            tailwind.config = {
+                content: [],
+                theme: {
+                    extend: {}
+                }
+            }
+        }
+        
+        // Real-time clock (giờ Việt Nam)
+        function updateLiveClock() {
+            const clockEl = document.getElementById('live-clock');
+            setInterval(() => {
+                const now = new Date();
+                const options = { 
+                    timeZone: 'Asia/Ho_Chi_Minh',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit',
+                    hour12: false 
+                };
+                clockEl.textContent = now.toLocaleTimeString('vi-VN', options) + ' (VN)';
+            }, 1000);
+        }
+        
+        // Fetch RSS qua rss2json proxy (không CORS, ổn định)
+        async function fetchRSS(rssUrl) {
+            const proxy = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}&api_key=free`;
+            try {
+                const response = await fetch(proxy, { 
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+                if (!response.ok) throw new Error('RSS error');
+                const data = await response.json();
+                return data.status === 'ok' ? data.items : [];
+            } catch (e) {
+                console.error('Lỗi fetch RSS:', e);
+                return [];
+            }
+        }
+        
+        // Render danh sách tin cho một mảng
+        function renderNews(containerId, items) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="p-8 text-center text-slate-400">
+                        <p>Không thể tải tin lúc này. Vui lòng thử lại sau.</p>
+                    </div>`;
+                return;
+            }
+            
+            items.slice(0, 6).forEach(item => {
+                const date = new Date(item.pubDate);
+                const formattedDate = date.toLocaleDateString('vi-VN', { 
+                    month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+                });
+                
+                const div = document.createElement('div');
+                div.className = 'news-item px-4 py-5 rounded-2xl cursor-pointer';
+                div.innerHTML = `
+                    <a href="${item.link}" target="_blank" class="block">
+                        <h3 class="font-semibold text-base leading-tight mb-2 line-clamp-2">${item.title}</h3>
+                        <p class="text-slate-600 text-sm line-clamp-3 mb-3">${item.description ? item.description.replace(/<[^>]+>/g, '').substring(0, 160) + '...' : ''}</p>
+                        <div class="flex justify-between items-center text-xs text-slate-500 font-medium">
+                            <span>${formattedDate}</span>
+                            <span class="text-[#1e40af]">Đọc đầy đủ →</span>
+                        </div>
+                    </a>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Cập nhật thời gian last updated
+        function updateTimestamp(sectionId) {
+            const el = document.getElementById(sectionId);
+            if (el) {
+                const now = new Date();
+                el.textContent = `Cập nhật \( {now.getHours().toString().padStart(2, '0')}: \){now.getMinutes().toString().padStart(2, '0')}`;
+            }
+        }
+        
+        // Ticker tin nóng
+        async function loadTicker() {
+            const rssUrl = 'https://vnexpress.net/rss/tin-moi-nhat.rss';
+            const items = await fetchRSS(rssUrl);
+            
+            const contentEl = document.getElementById('ticker-content');
+            contentEl.innerHTML = '';
+            
+            if (items.length > 0) {
+                // Nhân đôi để scroll mượt
+                const allItems = [...items.slice(0, 12), ...items.slice(0, 12)];
+                const html = allItems.map(item => `
+                    <a href="${item.link}" target="_blank" class="inline-flex items-center hover:underline mx-8">
+                        ${item.title}
+                    </a>
+                `).join('');
+                contentEl.innerHTML = html;
+            } else {
+                contentEl.innerHTML = `<span class="mx-8">Đang tải tin nóng từ VNExpress...</span>`;
+            }
+        }
+        
+        // Load tất cả 3 mảng
+        async function loadAllSections() {
+            // Tài chính
+            const financeItems = await fetchRSS('https://vnexpress.net/rss/kinh-doanh.rss');
+            renderNews('finance-news', financeItems);
+            updateTimestamp('finance-last-updated');
+            
+            // Kinh tế (cùng RSS kinh-doanh vì đây là phần bao quát kinh tế + tài chính)
+            const economyItems = await fetchRSS('https://vnexpress.net/rss/kinh-doanh.rss');
+            renderNews('economy-news', economyItems);
+            updateTimestamp('economy-last-updated');
+            
+            // Địa chính trị
+            const geopoliticsItems = await fetchRSS('https://vnexpress.net/rss/the-gioi.rss');
+            renderNews('geopolitics-news', geopoliticsItems);
+            updateTimestamp('geopolitics-last-updated');
+        }
+        
+        // Khởi chạy toàn bộ
+        window.onload = function() {
+            initializeTailwind();
+            updateLiveClock();
+            loadTicker();
+            loadAllSections();
+            
+            // Cập nhật liên tục mỗi 2 phút (120 giây)
+            setInterval(() => {
+                console.log('🔄 Đang cập nhật dữ liệu thời gian thực...');
+                loadAllSections();
+                loadTicker();
+            }, 120000);
+            
+            console.log('%c✅ Web đã sẵn sàng - Cập nhật liên tục từ VNExpress', 'color:#1e40af; font-weight:600');
+        };
+    </script>
 </body>
 </html>
